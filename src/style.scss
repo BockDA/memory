@@ -1,0 +1,16 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background-color: red;
+    //background: #f5f5f5;
+  //color: #222;
+ 
+}

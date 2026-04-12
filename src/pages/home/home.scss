@@ -1,0 +1,86 @@
+@use '/src/styles/abstracts/variables' as *;
+@use '/src/styles/typography/typography' as *;
+
+
+
+.home {
+    position: relative;
+    background-color: $background_home;
+    max-width: 1440px;
+    max-height: 1024px;
+    height: 100vh;
+    width: 100vw;
+}
+
+.container_playReady {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.line {
+    font-family: 'Red Rose', serif;
+    text-align: left;
+    white-space: nowrap;
+    color: $text_home;
+
+    &_one {
+        font-size: 48px;
+        font-weight: 400;
+    }
+
+    &_two {
+        font-size: 140px;
+        font-weight: 700;
+    }
+}
+
+.btn {
+    position: absolute;
+    left: 50%;
+    top: 65%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    border: 0;
+    background: transparent;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon {
+    width: 250px;
+    height: 98px;
+    display: block;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.icon-start {
+    background-image: url('/images/playbtn.png');
+    transition: transform 300ms ease;
+    transform-origin: center;
+    will-change: transform;
+}
+
+.icon-start:hover {
+    transform: scale(1.1);
+    background-image: url('/images/playbtn_hover.png');
+    cursor: pointer;
+}
+
+.icon-hover {
+    display: none;
+}
+
+.logo {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 350px;
+    height: auto;
+    margin-bottom: 10px;
+}
