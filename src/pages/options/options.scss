@@ -3,8 +3,8 @@
 
 .settings {
     display: grid;
-    grid-template-columns: minmax(320px, 0.8fr) minmax(620px, 1.2fr);
-    //gap: clamp(28px, 3vw, 56px);
+    grid-template-columns: minmax(320px, 0.8fr) minmax(783px, 1.2fr);
+    gap: clamp(28px, 3vw, 56px);
     align-items: start;
     background-color: $background_settings;
     width: min(100%, 1440px);
@@ -12,6 +12,10 @@
     margin: 0 auto;
     padding: clamp(28px, 4vw, 52px);
     box-sizing: border-box;
+}
+
+.settings>* {
+    min-width: 0;
 }
 
 
@@ -41,8 +45,8 @@
     align-items: center;
     justify-content: left;
     gap: 22px;
-    margin-top: 28px;
-    
+    margin-top: 48px;
+
 
     img {
         width: 28px;
@@ -69,6 +73,7 @@
         flex-direction: column;
         gap: 12px;
         align-items: flex-start;
+        margin-left: 50px;
     }
 
     br {
@@ -108,14 +113,13 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 26px;
+    gap: 72px;
     width: 100%;
     min-height: 100%;
     background-color: $background_settings;
 
 
     &_themes {
-       
         width: min(100%, 520px);
 
         img {
@@ -129,41 +133,43 @@
 
     &_summary {
         display: flex;
-        //justify-content: space-around;
-        //align-items: stretch;
-        width: min(100%, 560px);
-        //height: 38px;
+        justify-content: space-between;
+        gap: clamp(16px, 2vw, 40px);
+        align-self: center;
+        margin-inline: auto;
         min-height: 38px;
         background-color: $background_summary;
-        padding: 16px 20px;
+        padding: 20px 16px;
         box-sizing: border-box;
-        border-radius: 10px;
         font-size: clamp(16px, 1.3vw, 20px);
-        
+        overflow-x: auto;
+        overflow-y: hidden;
     }
 
 
     .setting_detail_show {
         display: flex;
         align-items: center;
+        justify-content: flex-start;
+        flex: 0 0 auto;
         gap: 10px;
+        white-space: nowrap;
 
         p {
             margin: 0;
+            white-space: nowrap;
         }
 
         img {
-            //width: 100px;
-            //max-width: 100%;
-            //height: auto;
+            max-width: 100%;
+            height: auto;
         }
-
     }
 }
 
 .settings {
     .btn {
-        margin-left: 20px;
+        margin-left: 30px;
         padding: 0;
         border: 0;
         background: transparent;
@@ -203,19 +209,9 @@
 
 @media (max-width: 1280px) {
     .settings {
-        grid-template-columns: minmax(500px, 1fr) minmax(360px, 0.85fr);
+        grid-template-columns: minmax(0, 1fr);
         gap: 24px;
         padding: 28px;
-    }
-
-    .setting_info_summary {
-        width: 100%;
-    }
-}
-
-@media (max-width: 1024px) {
-    .settings {
-        grid-template-columns: 1fr;
     }
 
     .setting_info {
@@ -226,5 +222,33 @@
     .setting_info_themes,
     .setting_info_summary {
         width: min(100%, 620px);
+    }
+
+    .setting_info_summary {
+        align-self: flex-start;
+        margin-inline: 0;
+    }
+}
+
+@media (max-width: 1100px) {
+
+    .setting_info_themes,
+    .setting_info_summary {
+        width: min(100%, 620px);
+    }
+}
+
+@media (max-width: 640px) {
+    .setting_info_summary {
+        padding: 18px 14px;
+        gap: 14px;
+    }
+
+    .setting_info .setting_detail_show {
+        gap: 8px;
+    }
+
+    .settings .btn {
+        margin-left: 0;
     }
 }
