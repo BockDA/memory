@@ -2,27 +2,36 @@
 @use '/src/styles/typography/typography' as *;
 
 .settings {
-    display: flex;
-    flex-direction: row-reverse;
+    display: grid;
+    grid-template-columns: minmax(320px, 0.8fr) minmax(620px, 1.2fr);
+    //gap: clamp(28px, 3vw, 56px);
+    align-items: start;
     background-color: $background_settings;
-    max-width: 1440px;
-    max-height: 1024px;
-    width: 100vw;
-    height: 100vh
+    width: min(100%, 1440px);
+    min-height: 100vh;
+    margin: 0 auto;
+    padding: clamp(28px, 4vw, 52px);
+    box-sizing: border-box;
 }
 
 
 .settings_headline {
-    position: absolute;
-    left: 25%;
-    top: 5%;
-    transform: translate(-50%);
-    text-align: center;
+    position: relative;
+    text-align: left;
+    max-width: 100%;
+    padding-left: 50px;
 
     &_text {
         font-family: 'Red Rose', serif;
-        font-size: 54px;
+        font-size: clamp(38px, 4vw, 54px);
         font-weight: 700;
+        margin: 0 0 10px;
+    }
+
+    >img {
+        width: clamp(260px, 42vw, 420px);
+        max-width: 100%;
+        height: auto;
     }
 }
 
@@ -31,26 +40,34 @@
     flex-direction: row;
     align-items: center;
     justify-content: left;
-    gap: 15px;
-    margin-top: 50px;
+    gap: 22px;
+    margin-top: 28px;
+    
+
+    img {
+        width: 28px;
+        height: 28px;
+        object-fit: contain;
+    }
 
     &_text {
         font-family: 'Almarai', sans-serif;
-        font-size: 24px;
+        font-size: clamp(20px, 2vw, 24px);
         font-weight: 700;
+        margin: 0;
     }
 }
 
 
 
-.option {
+.settings_headline>.option {
     margin-top: 20px;
-    margin-left: 45px;
+    margin-left: 8px;
 
     form {
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 12px;
         align-items: flex-start;
     }
 
@@ -62,7 +79,7 @@
         display: flex;
         align-items: center;
         gap: 10px;
-        font-size: 20px;
+        font-size: clamp(17px, 1.5vw, 20px);
         font-weight: 700;
 
         input[type='radio'] {
@@ -89,36 +106,40 @@
 .setting_info {
     display: flex;
     flex-direction: column;
-    position: relative;
-    height: 100vh;
-    width: 100vh;
-    //background-color: green;
+    justify-content: center;
+    align-items: center;
+    gap: 26px;
+    width: 100%;
+    min-height: 100%;
     background-color: $background_settings;
-    display: flex;
-    place-content: center;
+
 
     &_themes {
-        position: absolute;
-        left: 50%;
-        top: 20%;
-        transform: translate(-50%);
+       
+        width: min(100%, 520px);
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
 
     }
 
     &_summary {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 546px;
-        height: 81px;
-        //margin-top: 400px;  
-        position: absolute;
+        //justify-content: space-around;
+        //align-items: stretch;
+        width: min(100%, 560px);
+        //height: 38px;
+        min-height: 38px;
         background-color: $background_summary;
-        left: 20%;
-        top: 75%;
-        padding-left: 20px;
-        padding-right: 20px;
-        font-size: 20px;
+        padding: 16px 20px;
+        box-sizing: border-box;
+        border-radius: 10px;
+        font-size: clamp(16px, 1.3vw, 20px);
+        
     }
 
 
@@ -126,6 +147,16 @@
         display: flex;
         align-items: center;
         gap: 10px;
+
+        p {
+            margin: 0;
+        }
+
+        img {
+            //width: 100px;
+            //max-width: 100%;
+            //height: auto;
+        }
 
     }
 }
@@ -142,8 +173,9 @@
     }
 
     .icon {
-        width: 126px;
-        height: 53px;
+        width: clamp(98px, 9vw, 126px);
+        height: auto;
+        aspect-ratio: 126 / 53;
         display: block;
         background-repeat: no-repeat;
         background-position: center;
@@ -167,4 +199,32 @@
         display: none;
     }
 
+}
+
+@media (max-width: 1280px) {
+    .settings {
+        grid-template-columns: minmax(500px, 1fr) minmax(360px, 0.85fr);
+        gap: 24px;
+        padding: 28px;
+    }
+
+    .setting_info_summary {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1024px) {
+    .settings {
+        grid-template-columns: 1fr;
+    }
+
+    .setting_info {
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+
+    .setting_info_themes,
+    .setting_info_summary {
+        width: min(100%, 620px);
+    }
 }
