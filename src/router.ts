@@ -1,5 +1,5 @@
 import { renderHome } from './pages/home/home';
-import { renderOptions } from './pages/options/options';
+import { initOptions, renderOptions } from './pages/options/options';
 import { renderAbout } from './pages/about/about';
 
 const routes: Record<string, () => string> = {
@@ -25,6 +25,11 @@ function renderRoute(path: string): void {
 
     setTimeout(() => {
         app.innerHTML = page();
+
+        if (path === '/options') {
+            initOptions();
+        }
+
         app.classList.remove('fade');
         app.classList.add('show');
     }, 150);
