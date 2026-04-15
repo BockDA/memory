@@ -22,11 +22,13 @@ export const themes = [
 ];
 
 
-
 export function renderOptions(): string {                  //schreibt text in platzhalter
   return optionsTemplate;
-
 }
+
+
+
+
 
 export function initOptions(): void {
   const previewImage = document.querySelector<HTMLImageElement>('[data-theme-preview]');
@@ -35,7 +37,9 @@ export function initOptions(): void {
   if (!previewImage || !themeForm) {
     return;
   }
+}
 
+ /* 
   const themesById = new Map(themes.map((theme) => [theme.id, theme]));
   //console.log(themesById);
 
@@ -109,4 +113,5 @@ export  function setLine(): void {
 
 }
 
+*/
 
