@@ -1,45 +1,66 @@
-import './options.scss';
-import optionsTemplate from './options.html?raw';
-
+import "./options.scss";
+import optionsTemplate from "./options.html?raw";
 
 export const themes = [
   {
-    id: 'theme-1',
-    image: '/themes/Theme Visua_one.png',
+    id: "theme-1",
+    image: "/themes/Theme Visua_one.png",
   },
   {
-    id: 'theme-2',
-    image: '/themes/Theme Visual_two.png',
+    id: "theme-2",
+    image: "/themes/Theme Visual_two.png",
   },
   {
-    id: 'theme-3',
-    image: '/themes/Theme Visual_three.png',
+    id: "theme-3",
+    image: "/themes/Theme Visual_three.png",
   },
   {
-    id: 'theme-4',
-    image: '/themes/Theme Visual_four.png',
+    id: "theme-4",
+    image: "/themes/Theme Visual_four.png",
   },
 ];
 
-
-export function renderOptions(): string {                  //schreibt text in platzhalter
+export function renderOptions(): string {
+  //schreibt text in platzhalter
   return optionsTemplate;
 }
 
-
-
-
-
 export function initOptions(): void {
-  const previewImage = document.querySelector<HTMLImageElement>('[data-theme-preview]');
-  const themeForm = document.querySelector<HTMLFormElement>('[data-theme-options]');
-
-  if (!previewImage || !themeForm) {
+  const radiobtn = document.querySelectorAll('input[type="radio"]');
+  if (!radiobtn) {
     return;
   }
+  radioselect(radiobtn);
 }
 
- /* 
+function radioselect(radiobtn: any[] | NodeListOf<Element>): void {
+  radiobtn.forEach((btn,index) => {
+    btn.addEventListener("mouseenter", () => {
+      console.log("drüber",index,btn.value );
+      setpicture();
+    });
+
+btn.addEventListener("mousedown", () => {
+      console.log("drücken",btn.value );
+      
+    });
+
+  });
+}
+
+
+function setpicture():void{
+  const pic = document.getElementById("picThemes") as HTMLImageElement 
+  pic.src = "/themes/ThemeVisual_four.png";
+
+}
+
+
+
+
+
+
+/* 
   const themesById = new Map(themes.map((theme) => [theme.id, theme]));
   //console.log(themesById);
 
@@ -114,4 +135,3 @@ export  function setLine(): void {
 }
 
 */
-
