@@ -4,19 +4,19 @@ import optionsTemplate from "./options.html?raw";
 export const themes = [
   {
     id: "theme-1",
-    image: "/themes/Theme Visua_one.png",
+    image: "/themes/ThemeVisual_one.png",
   },
   {
     id: "theme-2",
-    image: "/themes/Theme Visual_two.png",
+    image: "/themes/ThemeVisual_two.png",
   },
   {
     id: "theme-3",
-    image: "/themes/Theme Visual_three.png",
+    image: "/themes/ThemeVisual_three.png",
   },
   {
     id: "theme-4",
-    image: "/themes/Theme Visual_four.png",
+    image: "/themes/ThemeVisual_four.png",
   },
 ];
 
@@ -37,7 +37,7 @@ function radioselect(radiobtn: any[] | NodeListOf<Element>): void {
   radiobtn.forEach((btn,index) => {
     btn.addEventListener("mouseenter", () => {
       console.log("drüber",index,btn.value );
-      setpicture();
+      setpicture(index);
     });
 
 btn.addEventListener("mousedown", () => {
@@ -49,10 +49,11 @@ btn.addEventListener("mousedown", () => {
 }
 
 
-function setpicture():void{
-  const pic = document.getElementById("picThemes") as HTMLImageElement 
-  pic.src = "/themes/ThemeVisual_four.png";
-
+function setpicture(index: number): void {
+  const pic = document.getElementById("picThemes") as HTMLImageElement;
+  if (!pic) return;
+  console.log(index);
+  pic.src = themes[index].image;
 }
 
 
