@@ -3,19 +3,19 @@ import optionsTemplate from "./options.html?raw";
 
 export const themes = [
   {
-    id: "theme-1",
+    id: "theme-A",
     image: "/themes/ThemeVisual_one.png",
   },
   {
-    id: "theme-2",
+    id: "theme-B",
     image: "/themes/ThemeVisual_two.png",
   },
   {
-    id: "theme-3",
+    id: "theme-C",
     image: "/themes/ThemeVisual_three.png",
   },
   {
-    id: "theme-4",
+    id: "theme-D",
     image: "/themes/ThemeVisual_four.png",
   },
 ];
