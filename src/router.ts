@@ -1,11 +1,13 @@
 import { renderHome } from './pages/home/home';
 import { initOptions, renderOptions } from './pages/options/options';
 import { renderAbout } from './pages/about/about';
+import { renderPlayfield } from './playfield/playfield';
 
 const routes: Record<string, () => string> = {
     '/': renderHome,
     '/options': renderOptions,
     '/about': renderAbout,
+    '/playfield': renderPlayfield
 };
 
 function getApp(): HTMLElement {

@@ -27,130 +27,94 @@ export function renderOptions(): string {
 
 export function initOptions(): void {
   //const radiobtn = document.querySelectorAll('input[type="radio"]');
-  const radiobtn = document.querySelectorAll("label");
+  const radiobtn = document.querySelectorAll<HTMLLabelElement>("label");
   if (!radiobtn) {
     return;
   }
   radioselect(radiobtn);
+  setLineselection();
 }
 
-function radioselect(radiobtn: any[] | NodeListOf<Element>): void {
+function radioselect(radiobtn: NodeListOf<HTMLLabelElement>): void {
   radiobtn.forEach((btn, index) => {
+    const radio = btn.querySelector('input[type="radio"]') as HTMLInputElement | null;
+
     btn.addEventListener("mouseenter", () => {
-      console.log("drüber", index, btn.value);
       if (index > 3) return;
       setpicture(index);
+      setThemeHoverLine(btn);
+    });
+
+    btn.addEventListener("mouseleave", () => {
+      if (index > 3) return;
       setLineselection();
     });
 
     btn.addEventListener("mousedown", () => {
       console.log("drücken", index);
+      if (index <= 3) setpicture(index);
+
+    });
+
+    radio?.addEventListener("change", () => {
+      if (index <= 3) setpicture(index);
+
+
+
+      setLineselection();
     });
   });
+}
+
+function setThemeHoverLine(label: HTMLLabelElement): void {
+  document
+    .querySelectorAll('input[name="game-theme"]')
+    .forEach((radio) => radio.closest("label")?.querySelector(".theme-img")?.remove());
+  setLine(label);
 }
 
 function setpicture(index: number): void {
   const pic = document.getElementById("picThemes") as HTMLImageElement;
   if (!pic) return;
-  console.log(index);
   pic.src = themes[index].image;
 }
 
 
 
-
 function setLineselection() {
-  
-   const radios = document.querySelectorAll('input[name="game-theme"]');
-
-radios.forEach(radio => {
-  radio.addEventListener('change', () => {
-    document.querySelectorAll('.theme-img').forEach(img => img.remove());
-
-    const label = radio.closest('label');
-    const img = document.createElement('img');
-    img.src = '/images/selectLine.png';
-    img.classList.add('theme-img');
-if(label){
-   label.appendChild(img);
-}
+  document.querySelectorAll<HTMLLabelElement>("label").forEach((label) => {
+    label.style.fontWeight = "400";
   });
-});
-    }
- 
-
-/* 
-  const themesById = new Map(themes.map((theme) => [theme.id, theme]));
-  //console.log(themesById);
-
-  const setPreview = (themeId: string): void => {
-    const theme = themesById.get(themeId);
-
-    if (!theme) {
-      return;
-    }
-
-    previewImage.src = theme.image;
-    
-  };
-
-  const syncPreviewWithSelection = (): void => {
-    const checkedThemeId = themeForm.querySelector<HTMLInputElement>('input[name="game-theme"]:checked')?.value ?? themes[0]?.id;
-
-    if (checkedThemeId) {
-      setPreview(checkedThemeId);
-
-    }
-  };
-
-  themeForm.addEventListener('change', (event) => {
-    const target = event.target;
-
-    console.log('bin bei :', target);
+  document.querySelectorAll(".theme-img").forEach((image) => image.remove());
 
 
+  const activeSelections = Array.from(
 
+    document.querySelectorAll<HTMLInputElement>('input[type="radio"]:checked')
+  ).map((radio) => {
+    const label = radio.closest("label");
+    if (label) setLine(label);
 
-    if (!(target instanceof HTMLInputElement) || target.name !== 'game-theme') {
-      return;
-    }
-
-    setPreview(target.value);
+    const selectedName = label?.textContent?.replace(/\s+/g, " ").trim() ?? "";
+    return ` ${selectedName}`;
   });
 
+  selectionWrite(activeSelections);
 
-  themeForm.querySelectorAll<HTMLLabelElement>('label[data-theme-id]').forEach((label) => {
-    const themeId = label.dataset.themeId;
-
-    if (!themeId) {
-      return;
-    }
-
-    label.addEventListener('mouseenter', () => {
-      setPreview(themeId);
-    });
-
-    label.addEventListener('mouseleave', () => {
-      syncPreviewWithSelection();
-    });
-
-    label.addEventListener('focusin', () => {
-      setPreview(themeId);
-    });
-
-    label.addEventListener('focusout', () => {
-      syncPreviewWithSelection();
-    });
-  });
-
-  syncPreviewWithSelection();
 }
 
 
-
-export  function setLine(): void {
-
-
+function setLine(label: HTMLLabelElement) {
+  const img = document.createElement("img");
+  img.src = "/images/selectLine.png";
+  img.classList.add("theme-img");
+  label.appendChild(img);
+  label.style.fontWeight = '700';
 }
 
-*/
+
+function selectionWrite(activeSelections: string[]): void {
+  document.getElementById("theme")!.textContent = activeSelections[0];
+  document.getElementById("player")!.textContent = activeSelections[1];
+  document.getElementById("boardSize")!.textContent = activeSelections[2];
+}
