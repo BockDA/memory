@@ -27,30 +27,27 @@ export function renderOptions(): string {
 
 export function initOptions(): void {
   //const radiobtn = document.querySelectorAll('input[type="radio"]');
-    const radiobtn = document.querySelectorAll('label');
+  const radiobtn = document.querySelectorAll("label");
   if (!radiobtn) {
     return;
   }
   radioselect(radiobtn);
 }
 
-
 function radioselect(radiobtn: any[] | NodeListOf<Element>): void {
-  radiobtn.forEach((btn,index) => {
+  radiobtn.forEach((btn, index) => {
     btn.addEventListener("mouseenter", () => {
-      console.log("drüber",index,btn.value );
-      if (index >3 )return;  
+      console.log("drüber", index, btn.value);
+      if (index > 3) return;
       setpicture(index);
+      setLineselection();
     });
 
-btn.addEventListener("mousedown", () => {
-      console.log("drücken",index );
-      
+    btn.addEventListener("mousedown", () => {
+      console.log("drücken", index);
     });
-
   });
 }
-
 
 function setpicture(index: number): void {
   const pic = document.getElementById("picThemes") as HTMLImageElement;
@@ -62,7 +59,25 @@ function setpicture(index: number): void {
 
 
 
+function setLineselection() {
+  
+   const radios = document.querySelectorAll('input[name="game-theme"]');
 
+radios.forEach(radio => {
+  radio.addEventListener('change', () => {
+    document.querySelectorAll('.theme-img').forEach(img => img.remove());
+
+    const label = radio.closest('label');
+    const img = document.createElement('img');
+    img.src = '/images/selectLine.png';
+    img.classList.add('theme-img');
+if(label){
+   label.appendChild(img);
+}
+  });
+});
+    }
+ 
 
 /* 
   const themesById = new Map(themes.map((theme) => [theme.id, theme]));
