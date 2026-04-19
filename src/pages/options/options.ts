@@ -26,22 +26,25 @@ export function renderOptions(): string {
 }
 
 export function initOptions(): void {
-  const radiobtn = document.querySelectorAll('input[type="radio"]');
+  //const radiobtn = document.querySelectorAll('input[type="radio"]');
+    const radiobtn = document.querySelectorAll('label');
   if (!radiobtn) {
     return;
   }
   radioselect(radiobtn);
 }
 
+
 function radioselect(radiobtn: any[] | NodeListOf<Element>): void {
   radiobtn.forEach((btn,index) => {
     btn.addEventListener("mouseenter", () => {
       console.log("drüber",index,btn.value );
+      if (index >3 )return;  
       setpicture(index);
     });
 
 btn.addEventListener("mousedown", () => {
-      console.log("drücken",btn.value );
+      console.log("drücken",index );
       
     });
 

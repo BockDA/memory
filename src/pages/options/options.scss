@@ -97,12 +97,15 @@
             place-content: center; //align und content center Doppelbefehl
             cursor: pointer;
             transition: border-color 0.2s ease, background-color 0.2s ease;
-
             &:checked {
                 background: radial-gradient(circle, #1b6d3a 0 24%, transparent 20%);
             }
         }
+        &:hover{
+            cursor: pointer;
+        }
     }
+    
 
 }
 
