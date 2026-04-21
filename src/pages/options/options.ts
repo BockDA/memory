@@ -1,5 +1,9 @@
 import "./options.scss";
 import optionsTemplate from "./options.html?raw";
+import { player } from "../../settings";
+
+
+console.log("Starte ts options.ts");
 
 export const themes = [
   {
@@ -117,4 +121,18 @@ function selectionWrite(activeSelections: string[]): void {
   document.getElementById("theme")!.textContent = activeSelections[0];
   document.getElementById("player")!.textContent = activeSelections[1];
   document.getElementById("boardSize")!.textContent = activeSelections[2];
+}
+
+
+document.addEventListener("click", () => {
+  console.log("Start button clicked");
+  takeover();
+});
+
+
+function takeover(): void { 
+  player.themes = document.getElementById("theme")!.textContent || "";
+  player.choosePlayer = document.getElementById("player")!.textContent || "";
+  player.BoardSize = parseInt(document.getElementById("boardSize")!.textContent || "0", 10);  
+console.log(player);
 }

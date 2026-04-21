@@ -6,3 +6,6 @@ export function renderPlayfield(): string {
     //schreibt text in platzhalter
     return playfieldTemplate;
 }
+
+
+

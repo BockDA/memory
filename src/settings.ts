@@ -1,35 +1,22 @@
-type Player = {
-    name: string;
-    points: number;
-    picture: string;
+export interface Player {
+    themes: string;
+    choosePlayer: string;
+    BoardSize: number;
 }
 
+export const player: Player = {
+    themes: "",
+    choosePlayer: "",
+    BoardSize: 0
+};
 
-type PlayField = {
-    theme: string;
-    colorPlayer: string;
-    cards: number;
-}
 
 
-export const playfields: PlayField = [
-
-    {
-        id: 1,
-        theme: "codevibestheme",
-        backgroundColor: "#ffffff",
-        backColorHeader: "#ffffff",
-        colorPlayer: "blue",
-        colorAndOpponent: "orange",
-        picturePlayer: "/themes/ThemeVisual_one.png",
-        pictureOpponent: "/themes/ThemeVisual_two.png",
-        pictureCurrentPlayer: "/themes/ThemeVisual_three.png",
-   
-        colorCards: "#ffffff",
-        font: "Arial",
+export interface Settings {
     
-    }
+}
+
+export const settings: Settings = {
 
 
-
-]
+};
