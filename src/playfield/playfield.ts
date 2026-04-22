@@ -1,11 +1,18 @@
 import "./playfield.scss";
 import playfieldTemplate from "./playfield.html?raw";
+import { player } from "../settings";
+
+
+
 
 
 export function renderPlayfield(): string {
-    //schreibt text in platzhalter
-    return playfieldTemplate;
+  
+    return playfieldTemplate
+        
 }
 
 
+
+console.log("playfield.ts loaded");
 

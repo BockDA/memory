@@ -134,5 +134,5 @@ function takeover(): void {
   player.themes = document.getElementById("theme")!.textContent || "";
   player.choosePlayer = document.getElementById("player")!.textContent || "";
   player.BoardSize = parseInt(document.getElementById("boardSize")!.textContent || "0", 10);  
-console.log(player);
+  console.log("Daten option ",player);
 }
