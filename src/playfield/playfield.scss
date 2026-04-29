@@ -40,9 +40,20 @@
 }
 
 
+.current-player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.exit-btn{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
 
 .btn {
-    margin-left: 30px;
+    margin-left: 10px;
     padding: 0;
     border: 0;
     background: transparent;

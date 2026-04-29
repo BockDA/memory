@@ -5,18 +5,24 @@ export interface Player {
 }
 
 export const player: Player = {
-    themes: "",
+    themes: "green",
     choosePlayer: "",
     BoardSize: 0
 };
 
 
 
-export interface Settings {
+export interface SettingsThemeCodevibes {
+   PlayFieldBackground: string;
+   CardFieldBackground: string;
+    
+   
+
     
 }
 
-export const settings: Settings = {
-
+export const settings: SettingsThemeCodevibes = {
+    PlayFieldBackground: "",
+    CardFieldBackground: "",
 
 };
