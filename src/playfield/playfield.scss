@@ -6,14 +6,16 @@
     position: relative;
     display: grid;
     grid-template-rows: auto 1fr;
-    background-color: $background_home;
     max-width: 1440px;
     max-height: 1024px;
     height: 100vh;
     width: 100vw;
-
     //Hilffuntionen
     color: white;
+    // Ab hier Variabelen
+    background-color: var(--playField_Background);
+
+    
 }
 
 
@@ -22,8 +24,13 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     padding: 20px;
-
+    margin-top: 40px;
+    height: 100px;
+    //Ab hier Variabelen
+    background-color: var(--playerHeader_Background);
+    color: var(--playerHeader_FontColor);
 }
 
 
@@ -31,25 +38,55 @@
 .player-section {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap:20px;
+    width:292px ;
+    height: 62px;
 
+
+//Ab hier Variabelen
+    background-color: var(--playerSection_Background);
+    font-size: var(--playerSection_FontSize);
+    
 }
 
 .players {
+    align-items: center;
     display: flex;
-    gap: 10px;
+    gap: 5px;
+ 
 }
+
+.player-picture,.opponent-picture {
+    width: 24px;
+    height: 20px;
+   
+}
+
 
 
 .current-player {
     display: flex;
     align-items: center;
     gap: 10px;
+    //Ab hier Variabelen
+    color:var(--currentPlayer_FontColor);
+    font-size: var(--currentPlayer_FontSize);
+    font-weight: var(--currentPlayer_FontWight);    
 }
 
 .exit-btn{
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5px;
+    width: 207px;
+    height: 62px;
+
+    //Ab hier Variabelen
+    background-color: var(--exitGameButton_backgroundColor);
+   
 }
 
 .btn {
@@ -60,7 +97,11 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    color: white;
+
+    //Ab hier Variabelen
+    color: var(--exitGameButton_fontColor);
+    font-size: var(--exitGameButton_fontSize);
+    font-weight: var(--exitGameButton_fontWight);
 }
 
 

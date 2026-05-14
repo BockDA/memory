@@ -1,7 +1,7 @@
 import { renderHome } from './pages/home/home';
 import { initOptions, renderOptions } from './pages/options/options';
 import { renderAbout } from './pages/about/about';
-import { renderPlayfield } from './playfield/playfield';
+import { renderPlayfield, writeSCSSVariables } from './playfield/playfield';
 
 const routes: Record<string, () => string> = {
     '/': renderHome,
@@ -30,6 +30,10 @@ function renderRoute(path: string): void {
 
         if (path === '/options') {
             initOptions();
+        }
+
+        if (path === '/playfield') {
+            writeSCSSVariables();
         }
 
         app.classList.remove('fade');

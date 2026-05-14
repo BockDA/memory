@@ -1,0 +1,45 @@
+{
+    "themes": [
+        {
+            "id": 0,
+            "title": "Codevibes",
+            "playField": {
+                "backgroundColor": "#303131"
+            },
+            "playerHeader": {
+                "backgroundColor": "#303131",
+                "borderColor": "#1e1e1e",
+                "borderRadius": "10px",
+                "fontColor": "#ffffff"
+            },
+            "playerSection": {
+                "backgroundColor": "#415652",
+                "borderColor": "#1e1e1e",
+                "borderRadius": "10px",
+                "fontColorPlayer": "#2bb1ff",
+                "fontColoropponent":"#f58e39",
+                "playerText":"Blue",
+                "opponentText":"Orange",
+                "imagePlayerOne": "./public/images/PlayField/playerBlue.png",
+                "imagePlayerTwo": "./public/images/PlayField/playerOrange.png",
+                "fontSize": "24px"
+            },
+            "playerCurrent": {
+                "fontColor": "#ffffff",
+                "image": "./public/images/PlayField/playerBlue.png",
+                "fontSize": "24px",
+                "fontWight":400
+            },
+            "exitGameButton": {
+                "backgroundColor": "#415652",
+                "borderColor": "#1e1e1e",
+                "borderRadius": "10px",
+                "fontColor": "#ffffff",
+                "fontSize": "20px",
+                "fontWight": 700,
+                "image": ""
+            }
+        }
+       
+    ]
+}

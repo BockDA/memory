@@ -1,9 +1,10 @@
 import "./options.scss";
 import optionsTemplate from "./options.html?raw";
-import { player } from "../../settings";
-
+import { player } from "./../../settings";
 
 console.log("Starte ts options.ts");
+
+let ThemeIndex = 0;
 
 export const themes = [
   {
@@ -43,6 +44,8 @@ function radioselect(radiobtn: NodeListOf<HTMLLabelElement>): void {
   radiobtn.forEach((btn, index) => {
     const radio = btn.querySelector('input[type="radio"]') as HTMLInputElement | null;
 
+    ThemeIndex = index;
+
     btn.addEventListener("mouseenter", () => {
       if (index > 3) return;
       setpicture(index);
@@ -62,9 +65,6 @@ function radioselect(radiobtn: NodeListOf<HTMLLabelElement>): void {
 
     radio?.addEventListener("change", () => {
       if (index <= 3) setpicture(index);
-
-
-
       setLineselection();
     });
   });
@@ -107,7 +107,6 @@ function setLineselection() {
 
 }
 
-
 function setLine(label: HTMLLabelElement) {
   const img = document.createElement("img");
   img.src = "/images/selectLine.png";
@@ -116,23 +115,28 @@ function setLine(label: HTMLLabelElement) {
   label.style.fontWeight = '700';
 }
 
-
 function selectionWrite(activeSelections: string[]): void {
   document.getElementById("theme")!.textContent = activeSelections[0];
   document.getElementById("player")!.textContent = activeSelections[1];
   document.getElementById("boardSize")!.textContent = activeSelections[2];
 }
 
-
 document.addEventListener("click", () => {
   console.log("Start button clicked");
-  takeover();
+  writeData();
 });
 
 
-function takeover(): void { 
-  player.themes = document.getElementById("theme")!.textContent || "";
-  player.choosePlayer = document.getElementById("player")!.textContent || "";
-  player.BoardSize = parseInt(document.getElementById("boardSize")!.textContent || "0", 10);  
-  console.log("Daten option ",player);
+export function writeData(): void {
+  player.index = ThemeIndex;
+  player.themes = document.getElementById("theme")!.textContent || "",
+    player.choosePlayer = document.getElementById("player")!.textContent || "",
+    player.BoardSize = parseInt(document.getElementById("boardSize")!.textContent || "0", 10),
+
+
+
+    console.log("Gespeicherte Player-Daten", player);
+
+
 }
+
