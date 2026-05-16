@@ -34,20 +34,22 @@
 }
 
 
-
 .player-section {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
     gap:20px;
-    width:292px ;
-    height: 62px;
+    width:auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    height: 54px;
 
 
 //Ab hier Variabelen
     background-color: var(--playerSection_Background);
     font-size: var(--playerSection_FontSize);
+    border-radius: var(--playerSection_BorderRadius);
     
 }
 
@@ -82,11 +84,15 @@
     justify-content: center;
     gap: 5px;
     width: 207px;
-    height: 62px;
+    height: 54px;
 
     //Ab hier Variabelen
     background-color: var(--exitGameButton_backgroundColor);
-   
+    border-color:var(--exitGameButton_borderColor);
+    border-radius: var(--exitGameButton_borderRadius);
+    border-style: solid;
+    border-width: var(--exitGameButton_borderWidth);
+    
 }
 
 .btn {
@@ -102,6 +108,7 @@
     color: var(--exitGameButton_fontColor);
     font-size: var(--exitGameButton_fontSize);
     font-weight: var(--exitGameButton_fontWight);
+  
 }
 
 

@@ -15,7 +15,7 @@
             "playerSection": {
                 "backgroundColor": "#415652",
                 "borderColor": "#1e1e1e",
-                "borderRadius": "10px",
+                "borderRadius": "0px",
                 "fontColorPlayer": "#2bb1ff",
                 "fontColoropponent":"#f58e39",
                 "playerText":"Blue",
@@ -33,11 +33,51 @@
             "exitGameButton": {
                 "backgroundColor": "#415652",
                 "borderColor": "#1e1e1e",
+                "borderRadius": "0px",
+                "fontColor": "#ffffff",
+                "fontSize": "20px",
+                "fontWight": 700,
+                "borderWidth": "0px"
+            }
+        },
+        {
+            "id": 1,
+            "title": "Codevibes",
+            "playField": {
+                "backgroundColor": "#303131"
+            },
+            "playerHeader": {
+                "backgroundColor": "#535d75",
+                "borderColor": "#1e1e1e",
+                "borderRadius": "10px",
+                "fontColor": "#ffffff"
+            },
+            "playerSection": {
+                "backgroundColor": "#ffffff",
+                "borderColor": "#1e1e1e",
+                "borderRadius": "10px",
+                "fontColorPlayer": "#2bb1ff",
+                "fontColoropponent": "#f58e39",
+                "playerText": "",
+                "opponentText": "",
+                "imagePlayerOne": "./public/images/PlayField/chess_pawn_orange.png",
+                "imagePlayerTwo": "./public/images/PlayField/chess_pawn_blue.png",
+                "fontSize": "24px"
+            },
+            "playerCurrent": {
+                "fontColor": "#ffffff",
+                "image": "./public/images/PlayField/chess_pawn.png",
+                "fontSize": "24px",
+                "fontWight": 400
+            },
+            "exitGameButton": {
+                "backgroundColor": "#05f5875",
+                "borderColor": "#E71C4F",
                 "borderRadius": "10px",
                 "fontColor": "#ffffff",
                 "fontSize": "20px",
                 "fontWight": 700,
-                "image": ""
+                "borderWidth": "4px"
             }
         }
        

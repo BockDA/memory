@@ -6,7 +6,7 @@ export interface Player {
 }
 
 export const player: Player = {
-    index:0,
+    index: 1,
     themes: "",
     choosePlayer: "",
     BoardSize: 0,
@@ -60,7 +60,7 @@ export interface Theme {
         "fontColor": string,
         "fontSize": string,
         "fontWight": number,
-        "image": string,
+        "borderWidth": string,
     }
 }
 

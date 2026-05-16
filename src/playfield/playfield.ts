@@ -11,7 +11,7 @@ export function renderPlayfield(): string {
 }
 
 function writeJSONData(): Theme {
-    console.log("aktuller index", player.index);
+    console.log("aktuller index",player.index);
     
     const theme: Theme = {
         playerSettings: {
@@ -58,10 +58,9 @@ function writeJSONData(): Theme {
             "fontColor": themes[player.index].exitGameButton.fontColor,
             "fontSize": themes[player.index].exitGameButton.fontSize,
             "fontWight": themes[player.index].exitGameButton.fontWight,   
-            "image": themes[player.index].exitGameButton.image,
+            "borderWidth": themes[player.index].exitGameButton.borderWidth
         }
     }
-
     console.log("Eintrag von themes", theme);
     return theme;
 }
@@ -129,6 +128,8 @@ export function writeSCSSVariables(): void {
         currentTheme.playerHeader.fontColor
     );
 
+
+    //Player Section
     document.documentElement.style.setProperty(
         '--playerSection_Background',
         currentTheme.playerSection.backgroundColor
@@ -138,6 +139,11 @@ export function writeSCSSVariables(): void {
         '--playerSection_FontSize',
         currentTheme.playerSection.fontSize
     );
+
+    document.documentElement.style.setProperty(
+        '--playerSection_BorderRadius',
+        currentTheme.playerSection.borderRadius
+    )
 
 
 //Current Player
@@ -168,6 +174,23 @@ export function writeSCSSVariables(): void {
         currentTheme.exitGameButton.backgroundColor
     );
 
+    document.documentElement.style.setProperty(
+        '--exitGameButton_borderColor',
+        currentTheme.exitGameButton.borderColor
+    );
+
+    document.documentElement.style.setProperty(
+        '--exitGameButton_borderRadius',
+        currentTheme.exitGameButton.borderRadius
+    );
+    
+    document.documentElement.style.setProperty(
+        '--exitGameButton_borderWidth',
+        currentTheme.exitGameButton.borderWidth
+    );
+    
+    
+    
     document.documentElement.style.setProperty(
         '--exitGameButton_fontColor',
         currentTheme.exitGameButton.fontColor

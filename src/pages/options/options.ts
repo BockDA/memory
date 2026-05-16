@@ -8,7 +8,7 @@ let ThemeIndex = 0;
 
 export const themes = [
   {
-    id: "theme-A",
+    id: "1",
     image: "/themes/ThemeVisual_one.png",
   },
   {
@@ -44,7 +44,7 @@ function radioselect(radiobtn: NodeListOf<HTMLLabelElement>): void {
   radiobtn.forEach((btn, index) => {
     const radio = btn.querySelector('input[type="radio"]') as HTMLInputElement | null;
 
-    ThemeIndex = index;
+    
 
     btn.addEventListener("mouseenter", () => {
       if (index > 3) return;
@@ -59,7 +59,10 @@ function radioselect(radiobtn: NodeListOf<HTMLLabelElement>): void {
 
     btn.addEventListener("mousedown", () => {
       console.log("drücken", index);
-      if (index <= 3) setpicture(index);
+      if (index <= 3) {
+        setpicture(index);
+        ThemeIndex = index;
+          }
 
     });
 
@@ -130,13 +133,8 @@ document.addEventListener("click", () => {
 export function writeData(): void {
   player.index = ThemeIndex;
   player.themes = document.getElementById("theme")!.textContent || "",
-    player.choosePlayer = document.getElementById("player")!.textContent || "",
-    player.BoardSize = parseInt(document.getElementById("boardSize")!.textContent || "0", 10),
-
-
-
-    console.log("Gespeicherte Player-Daten", player);
-
-
+  player.choosePlayer = document.getElementById("player")!.textContent || "",
+  player.BoardSize = parseInt(document.getElementById("boardSize")!.textContent || "0", 10)
+ 
 }
 
