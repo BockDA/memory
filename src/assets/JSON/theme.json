@@ -6,6 +6,9 @@
             "playField": {
                 "backgroundColor": "#303131"
             },
+            "card": {
+                "frontCardIMG": "./public/images/Cards/FrontTheme1.png"
+            },
             "playerHeader": {
                 "backgroundColor": "#303131",
                 "borderColor": "#1e1e1e",
@@ -17,9 +20,9 @@
                 "borderColor": "#1e1e1e",
                 "borderRadius": "0px",
                 "fontColorPlayer": "#2bb1ff",
-                "fontColoropponent":"#f58e39",
-                "playerText":"Blue",
-                "opponentText":"Orange",
+                "fontColoropponent": "#f58e39",
+                "playerText": "Blue",
+                "opponentText": "Orange",
                 "imagePlayerOne": "./public/images/PlayField/playerBlue.png",
                 "imagePlayerTwo": "./public/images/PlayField/playerOrange.png",
                 "fontSize": "24px"
@@ -28,7 +31,7 @@
                 "fontColor": "#ffffff",
                 "image": "./public/images/PlayField/playerBlue.png",
                 "fontSize": "24px",
-                "fontWight":400
+                "fontWight": 400
             },
             "exitGameButton": {
                 "backgroundColor": "#415652",
@@ -45,6 +48,9 @@
             "title": "Codevibes",
             "playField": {
                 "backgroundColor": "#303131"
+            },
+            "card": {
+                "frontCardIMG": "./public/images/Cards/FrontTheme1.png"
             },
             "playerHeader": {
                 "backgroundColor": "#535d75",
@@ -80,6 +86,5 @@
                 "borderWidth": "4px"
             }
         }
-       
     ]
 }

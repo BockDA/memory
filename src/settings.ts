@@ -27,6 +27,10 @@ export interface Theme {
         "background": string;
     };
 
+    card: {
+        "frontCardIMG": string;
+    },
+
     playerHeader: {
         "backgroundColor": string,
         "borderColor": string,

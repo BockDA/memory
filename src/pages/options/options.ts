@@ -124,10 +124,13 @@ function selectionWrite(activeSelections: string[]): void {
   document.getElementById("boardSize")!.textContent = activeSelections[2];
 }
 
-document.addEventListener("click", () => {
-  console.log("Start button clicked");
-  writeData();
-});
+const startBtn = document.getElementById("start-btn");
+if (startBtn) {
+  startBtn.addEventListener("click", () => {
+    console.log("Start button clicked");
+    writeData();
+  });
+}
 
 
 export function writeData(): void {
