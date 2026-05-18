@@ -1,6 +1,7 @@
 import "./playfield.scss";
 import playfieldTemplate from "./playfield.html?raw";
 import { themes } from "../assets/JSON/theme.json";
+import cardsData from "../assets/JSON/cards.json";
 import type { Theme } from "../settings";
 import { player } from "../settings"
 
@@ -27,7 +28,7 @@ function writeJSONData(): Theme {
         },
 
         card: {
-            "frontCardIMG": themes[player.index].card.frontCardIMG,
+            "frontCardIMG": themes[player.index].card.frontCardIMG
         },
 
 
@@ -211,30 +212,65 @@ export function writeSCSSVariables(): void {
 
 }
 
+
 export class Card {
     id: number;
     name: string;
     picture: string;
-    constructor(id: number, name: string, picture: string) {
+    element: HTMLElement;
+    backImg: string;
+
+    constructor(id: number, name: string, picture: string, frontImg: string, backImg: string) {
         this.id = id;
         this.name = name;
         this.picture = picture;
+        // Entferne './public' aus dem Pfad für die Browser-Nutzung
+        this.backImg = backImg.replace(/^\.\/public/, "");
+        this.element = this.createCardElement(frontImg);
+        this.addClickListener();
     }
 
-    /**
-     * Registriert einen Click-Listener auf das übergebene DOM-Element.
-     * @param element Das DOM-Element der Karte
-     * @param callback Die Callback-Funktion, die beim Klick ausgeführt wird
-     */
-    addClickListener(element: HTMLElement, callback: (card: Card, event: MouseEvent) => void) {
-        element.addEventListener('click', (event) => {
-            callback(this, event);
+    private createCardElement(frontImg: string): HTMLElement {
+        const cardDiv = document.createElement('div');
+        cardDiv.className = 'card';
+        const cardInner = document.createElement('div');
+        cardInner.className = 'card-inner';
+        const cardFront = document.createElement('div');
+        cardFront.className = 'card-front';
+        const frontImgEl = document.createElement('img');
+        frontImgEl.src = frontImg;
+        cardFront.appendChild(frontImgEl);
+
+        const cardBack = document.createElement('div');
+        cardBack.className = 'card-back';
+        const backImgEl = document.createElement('img');
+        backImgEl.src = this.backImg;
+        cardBack.appendChild(backImgEl);
+
+        cardInner.appendChild(cardFront);
+        cardInner.appendChild(cardBack);
+        cardDiv.appendChild(cardInner);
+        return cardDiv;
+    }
+
+    private addClickListener() {
+        this.element.addEventListener('click', () => {
+            this.flip();
+            console.log(`Card ${this.name} clicked`);
         });
     }
+
+    flip() {
+        // Toggle die Klasse 'flipped' auf dem inneren Card-Element
+        const cardInner = this.element.querySelector('.card-inner');
+        if (cardInner) {
+            cardInner.classList.toggle('flipped');
+        } else {
+            // Fallback: auf Hauptelement toggeln
+            this.element.classList.toggle('flipped');
+        }
+    }
 }
-
-
-    
 
 
 
@@ -244,12 +280,18 @@ export const cards: Card[] = [];
 
 export function createCards(anzahl: number): void {
     cards.length = 0; // Array leeren, falls schon Karten vorhanden sind
+    // Hole das aktuelle Theme für die Vorderseite
+    const frontImg = themes[player.index].card.frontCardIMG;
+    // Rückseitenbilder aus cards.json
+    const cardBacks = cardsData.card;
     for (let i = 1; i <= anzahl; i++) {
         const name = `card${i}`;
         const picture = `/cards/card${i}.png`;
+        // Rückseitenbild dynamisch aus JSON holen
+        const backImg = cardBacks[0][`backCardIMG${i}`] || "";
         // Jedes Kartenpaar zweimal hinzufügen
-        cards.push(new Card(i, name, picture));
-        cards.push(new Card(i, name, picture));
+        cards.push(new Card(i, name, picture, frontImg, backImg));
+        cards.push(new Card(i, name, picture, frontImg, backImg));
     }
     console.log("cards array", cards);
     cardMix();
@@ -266,7 +308,6 @@ export function cardMix(): void {
 
 
 export function initPlayfield(): void {
-
     console.log("init playfield");
     const cardField = document.querySelector('.card-Field');
     if (!cardField) return;
@@ -282,36 +323,9 @@ export function initPlayfield(): void {
     // Vorherigen Inhalt entfernen
     cardField.innerHTML = '';
 
-    // Hole das aktuelle Theme für die Vorderseite
-
-
-    cards.forEach((card, idx) => {
-        const cardDiv = document.createElement('div');
-        cardDiv.className = 'card';
-        cardDiv.dataset.index = idx.toString();
-        const cardInner = document.createElement('div');
-        cardInner.className = 'card-inner';
-        const cardFront = document.createElement('div');
-        cardFront.className = 'card-front';
-        // Optional: Kartenname anzeigen
-        // const nameP = document.createElement('p');
-        // nameP.textContent = card.name;
-        // cardFront.appendChild(nameP);
-        const frontImgEl = document.createElement('img');
-        frontImgEl.src = themes[player.index].card.frontCardIMG;
-        cardFront.appendChild(frontImgEl);
-
-        //Rücksteite der Karte
-        const cardBack = document.createElement('div');
-        cardBack.className = 'card-back';
-        const backImgEl = document.createElement('img');
-        backImgEl.src = card.picture;
-        cardBack.appendChild(backImgEl);
-
-        cardInner.appendChild(cardFront);
-        cardInner.appendChild(cardBack);
-        cardDiv.appendChild(cardInner);
-        cardField.appendChild(cardDiv);
+    // Karten-Elemente aus der Card-Klasse einfügen
+    cards.forEach((card) => {
+        cardField.appendChild(card.element);
     });
 }
 

@@ -5,7 +5,7 @@
 .playfield {
     position: relative;
     display: grid;
-     
+
     grid-template-rows: auto 1fr;
     max-width: 1440px;
     max-height: 1024px;
@@ -15,7 +15,7 @@
     color: white;
     // Ab hier Variabelen
     background-color: var(--playField_Background);
-    
+
 }
 
 
@@ -25,29 +25,49 @@
     align-self: center;
     width: auto;
     height: auto;
-    background-color:yellow;
-    padding:  20px;
+    background-color: yellow;
+    padding: 20px;
 }
 
-.card{
+
+.card {
     width: 120px;
     height: 120px;
+    perspective: 600px;
     background-color: red;
-    //border-radius:8px;
+}
 
+.card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.card-inner.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    top: 0;
+    left: 0;
 }
 
 .card-front {
-    width: 100%;
-    height: 100%;
-    //border-radius: 8px;
-    //overflow: hidden;
-    
+    z-index: 2;
+    background: white;
 }
 
-
-.card-back{
-    display: none;
+.card-back {
+    transform: rotateY(180deg);
+    z-index: 1;
+    background: white;
 }
 
 .playfield-header {
@@ -69,31 +89,32 @@
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap:20px;
-    width:auto;
+    gap: 20px;
+    width: auto;
     padding-left: 20px;
     padding-right: 20px;
     height: 54px;
 
 
-//Ab hier Variabelen
+    //Ab hier Variabelen
     background-color: var(--playerSection_Background);
     font-size: var(--playerSection_FontSize);
     border-radius: var(--playerSection_BorderRadius);
-    
+
 }
 
 .players {
     align-items: center;
     display: flex;
     gap: 5px;
- 
+
 }
 
-.player-picture,.opponent-picture {
+.player-picture,
+.opponent-picture {
     width: 24px;
     height: 20px;
-   
+
 }
 
 
@@ -103,12 +124,12 @@
     align-items: center;
     gap: 10px;
     //Ab hier Variabelen
-    color:var(--currentPlayer_FontColor);
+    color: var(--currentPlayer_FontColor);
     font-size: var(--currentPlayer_FontSize);
-    font-weight: var(--currentPlayer_FontWight);    
+    font-weight: var(--currentPlayer_FontWight);
 }
 
-.exit-btn{
+.exit-btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -118,11 +139,11 @@
 
     //Ab hier Variabelen
     background-color: var(--exitGameButton_backgroundColor);
-    border-color:var(--exitGameButton_borderColor);
+    border-color: var(--exitGameButton_borderColor);
     border-radius: var(--exitGameButton_borderRadius);
     border-style: solid;
     border-width: var(--exitGameButton_borderWidth);
-    
+
 }
 
 .btn {
@@ -138,6 +159,5 @@
     color: var(--exitGameButton_fontColor);
     font-size: var(--exitGameButton_fontSize);
     font-weight: var(--exitGameButton_fontWight);
-  
-}
 
+}
