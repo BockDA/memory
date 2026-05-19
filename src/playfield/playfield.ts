@@ -1,3 +1,4 @@
+
 import "./playfield.scss";
 import playfieldTemplate from "./playfield.html?raw";
 import { themes } from "../assets/JSON/theme.json";
@@ -75,7 +76,6 @@ function writeJSONData(): Theme {
 //wird in  routers aufgerufen, wenn die playfield seite aufgerufen wird, um die scss variablen zu setzen
 export function writeSCSSVariables(): void {
     const currentTheme = writeJSONData()
-
     const playerImg = document.querySelector(".player-picture") as HTMLImageElement | null;
     if (playerImg) {
         playerImg.src = currentTheme.playerSection.imagePlayerOne;
@@ -217,15 +217,15 @@ export class Card {
     id: number;
     name: string;
     picture: string;
-    element: HTMLElement;
     backImg: string;
+    element: HTMLElement;
+
 
     constructor(id: number, name: string, picture: string, frontImg: string, backImg: string) {
         this.id = id;
         this.name = name;
         this.picture = picture;
-        // Entferne './public' aus dem Pfad für die Browser-Nutzung
-        this.backImg = backImg.replace(/^\.\/public/, "");
+        this.backImg = backImg;
         this.element = this.createCardElement(frontImg);
         this.addClickListener();
     }
@@ -272,23 +272,32 @@ export class Card {
     }
 }
 
-
-
-
 // 8 verschiedene Kartenpaare (insgesamt 16 Karten)
 export const cards: Card[] = [];
-
 export function createCards(anzahl: number): void {
     cards.length = 0; // Array leeren, falls schon Karten vorhanden sind
     // Hole das aktuelle Theme für die Vorderseite
     const frontImg = themes[player.index].card.frontCardIMG;
     // Rückseitenbilder aus cards.json
     const cardBacks = cardsData.card;
+    const cardBackObj: any = cardBacks && cardBacks[0] ? cardBacks[0] : {};
+
+    // Ermittle die Anzahl der verfügbaren Symbole (Bilder)
+    // Annahme: Die Bilder sind von card1.png bis cardN.png vorhanden
+    // Wir zählen, wie viele backCardIMG-Keys es gibt
+    const availableImages = Object.keys(cardBackObj)
+        .filter(key => key.startsWith("backCardIMG"))
+        .length;
+    // Fallback: Wenn keine gefunden, mindestens 1
+    const symbolCount = availableImages > 0 ? availableImages : 1;
+
     for (let i = 1; i <= anzahl; i++) {
-        const name = `card${i}`;
-        const picture = `/cards/card${i}.png`;
-        // Rückseitenbild dynamisch aus JSON holen
-        const backImg = cardBacks[0][`backCardIMG${i}`] || "";
+        // Ermittle den Index für das Bild (1-basiert, rotiert bei Überschreitung)
+        const imgIndex = ((i - 1) % symbolCount) + 1;
+        const name = `card${imgIndex}`;
+        const picture = `/cards/card${imgIndex}.png`;
+        // Rückseitenbild dynamisch aus JSON holen, mit any-Typ
+        const backImg = cardBackObj[`backCardIMG${imgIndex}`] || "";
         // Jedes Kartenpaar zweimal hinzufügen
         cards.push(new Card(i, name, picture, frontImg, backImg));
         cards.push(new Card(i, name, picture, frontImg, backImg));

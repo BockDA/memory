@@ -6,7 +6,7 @@ export interface Player {
 }
 
 export const player: Player = {
-    index: 1,
+    index: 0,
     themes: "",
     choosePlayer: "",
     BoardSize: 0,

@@ -36,7 +36,7 @@ function renderRoute(path: string): void {
 
         if (path === '/playfield') {
             writeSCSSVariables();
-            createCards(8);
+            createCards(18);
             initPlayfield();
         }
 
