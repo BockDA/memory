@@ -20,7 +20,12 @@ function getApp(): HTMLElement {
     return app;
 }
 
+
 function renderRoute(path: string): void {
+    // Entferne abschließenden Slash, außer bei Root-Pfad
+    if (path.length > 1 && path.endsWith('/')) {
+        path = path.slice(0, -1);
+    }
     const app = getApp();
     const page = routes[path] || (() => `<h2>404</h2><p>Seite nicht gefunden</p>`);
 
