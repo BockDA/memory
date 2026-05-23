@@ -138,10 +138,22 @@ function selectionWrite(activeSelections: string[]): void {
 
 
 export function writeData(): void {
-console.log("write data wird aufgerufen");
-  player.index = ThemeIndex;
-  player.themes = document.getElementById("theme")!.textContent || "",
-  player.choosePlayer = document.getElementById("player")!.textContent || "",
-  player.BoardSize = parseInt(document.getElementById("boardSize")!.textContent || "0", 10)
+  console.log("write data wird aufgerufen");
+
+  const selectedThemeRadio = document.querySelector<HTMLInputElement>('input[name="game-theme"]:checked');
+  const selectedPlayerRadio = document.querySelector<HTMLInputElement>('input[name="Chooseplayer"]:checked');
+  const selectedBoardSizeRadio = document.querySelector<HTMLInputElement>('input[name="Boardsize"]:checked');
+
+  const selectedThemeIndex = selectedThemeRadio
+    ? Math.max(parseInt(selectedThemeRadio.value.replace("theme-", ""), 10) - 1, 0)
+    : 0;
+
+  ThemeIndex = selectedThemeIndex;
+  player.index = selectedThemeIndex;
+  player.themes = themes[selectedThemeIndex]?.id || "theme-A";
+  player.choosePlayer = selectedPlayerRadio?.value === "2" ? "orange" : "blue";
+  player.BoardSize = selectedBoardSizeRadio
+    ? parseInt(selectedBoardSizeRadio.value, 10) * 8 + 8
+    : 16;
 
 }

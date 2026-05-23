@@ -1,15 +1,15 @@
 export interface Player {
     index: number;
     themes: string;
-    choosePlayer: string;
+    choosePlayer: "blue" | "orange";
     BoardSize: number;
 }
 
 export const player: Player = {
     index: 0,
     themes: "",
-    choosePlayer: "",
-    BoardSize: 0,
+    choosePlayer: "blue",
+    BoardSize: 16,
 };
 
 export interface Theme {
@@ -43,8 +43,6 @@ export interface Theme {
         "borderRadius": string,
         "fontColorPlayer": string,
         "fontColoropponent": string,
-        "playerText": string,
-        "opponentText": string,
         "imagePlayerOne": string,
         "imagePlayerTwo": string,
         "fontSize": string,
@@ -67,9 +65,3 @@ export interface Theme {
         "borderWidth": string,
     }
 }
-
-
-
-
-
-

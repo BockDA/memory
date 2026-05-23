@@ -21,8 +21,6 @@
                 "borderRadius": "0px",
                 "fontColorPlayer": "#2bb1ff",
                 "fontColoropponent": "#f58e39",
-                "playerText": "Blue",
-                "opponentText": "Orange",
                 "imagePlayerOne": "./public/images/PlayField/playerBlue.png",
                 "imagePlayerTwo": "./public/images/PlayField/playerOrange.png",
                 "fontSize": "24px"
@@ -64,8 +62,6 @@
                 "borderRadius": "10px",
                 "fontColorPlayer": "#2bb1ff",
                 "fontColoropponent": "#f58e39",
-                "playerText": "",
-                "opponentText": "",
                 "imagePlayerOne": "./public/images/PlayField/chess_pawn_orange.png",
                 "imagePlayerTwo": "./public/images/PlayField/chess_pawn_blue.png",
                 "fontSize": "24px"

@@ -5,6 +5,7 @@ import { themes } from "../assets/JSON/theme.json";
 import cardsData from "../assets/JSON/cards.json";
 import type { Theme } from "../settings";
 import { player } from "../settings"
+import { counterCard, initGameLogic, resetCardCounter } from "./gameLogic";
 
 
 console.log("Starte ts playfield.ts");
@@ -16,6 +17,7 @@ export function renderPlayfield(): string {
 
 function writeJSONData(): Theme {
     console.log("aktuller index", player.index);
+    console.log("chose Player", player.choosePlayer);
     const theme: Theme = {
         playerSettings: {
             themeIndex: player.index,
@@ -48,8 +50,6 @@ function writeJSONData(): Theme {
             "borderRadius": themes[player.index].playerSection.borderRadius,
             "fontColorPlayer": themes[player.index].playerSection.fontColorPlayer,
             "fontColoropponent": themes[player.index].playerSection.fontColoropponent,
-            "playerText": themes[player.index].playerSection.playerText,
-            "opponentText": themes[player.index].playerSection.opponentText,
             "imagePlayerOne": themes[player.index].playerSection.imagePlayerOne,
             "imagePlayerTwo": themes[player.index].playerSection.imagePlayerTwo,
             "fontSize": themes[player.index].playerSection.fontSize,
@@ -79,28 +79,60 @@ function writeJSONData(): Theme {
 //wird in  routers aufgerufen, wenn die playfield seite aufgerufen wird, um die scss variablen zu setzen
 export function writeSCSSVariables(): void {
     const currentTheme = writeJSONData()
+    const selectedPlayer: "blue" | "orange" = player.choosePlayer === "orange" ? "orange" : "blue";
+    const opponentPlayer: "blue" | "orange" = selectedPlayer === "blue" ? "orange" : "blue";
+
+    const playerColor = selectedPlayer === "blue"
+        ? currentTheme.playerSection.fontColorPlayer
+        : currentTheme.playerSection.fontColoropponent;
+    const opponentColor = selectedPlayer === "blue"
+        ? currentTheme.playerSection.fontColoropponent
+        : currentTheme.playerSection.fontColorPlayer;
+
+    const imagePool = [
+        currentTheme.playerSection.imagePlayerOne,
+        currentTheme.playerSection.imagePlayerTwo,
+    ];
+
+    const findImageByColor = (color: "blue" | "orange"): string | null => {
+        const normalizedColor = color.toLowerCase();
+        return imagePool.find((img) => img.toLowerCase().includes(normalizedColor)) ?? null;
+    };
+
+    const selectedPlayerImage =
+        findImageByColor(selectedPlayer) ??
+        (selectedPlayer === "blue" ? imagePool[0] : imagePool[1]);
+    const opponentPlayerImage =
+        findImageByColor(opponentPlayer) ??
+        (selectedPlayer === "blue" ? imagePool[1] : imagePool[0]);
+
+    const blueImage = selectedPlayer === "blue" ? selectedPlayerImage : opponentPlayerImage;
+    const orangeImage = selectedPlayer === "orange" ? selectedPlayerImage : opponentPlayerImage;
+
+    initGameLogic(selectedPlayer, blueImage, orangeImage);
+
     const playerImg = document.querySelector(".player-picture") as HTMLImageElement | null;
     if (playerImg) {
-        playerImg.src = currentTheme.playerSection.imagePlayerOne;
+        playerImg.src = selectedPlayerImage;
     }
 
     const opponentImg = document.querySelector(".opponent-picture") as HTMLImageElement | null;
     if (opponentImg) {
-        opponentImg.src = currentTheme.playerSection.imagePlayerTwo;
+        opponentImg.src = opponentPlayerImage;
     }
 
     //Player Texte
     const playerName = document.querySelector(".player-name") as HTMLElement | null;
     if (playerName) {
-        playerName.style.color = currentTheme.playerSection.fontColorPlayer;
-        playerName.innerText = currentTheme.playerSection.playerText;
+        playerName.style.color = playerColor;
+        playerName.innerText = selectedPlayer === "blue" ? "Blue" : "Orange";
     }
 
     //opponent Texte
     const opponentName = document.querySelector(".opponent-name") as HTMLElement | null;
     if (opponentName) {
-        opponentName.style.color = currentTheme.playerSection.fontColoropponent;
-        opponentName.innerText = currentTheme.playerSection.opponentText;
+        opponentName.style.color = opponentColor;
+        opponentName.innerText = opponentPlayer === "blue" ? "Blue" : "Orange";
     }
 
 
@@ -108,12 +140,12 @@ export function writeSCSSVariables(): void {
     //Spielstand Player and Opponent
     const playerPoints = document.querySelector(".player-points") as HTMLElement | null;
     if (playerPoints) {
-        playerPoints.style.color = currentTheme.playerSection.fontColorPlayer;
+        playerPoints.style.color = playerColor;
         playerPoints.innerText = "0";
     }
     const opponentPoints = document.querySelector(".opponent-points") as HTMLElement | null;
     if (opponentPoints) {
-        opponentPoints.style.color = currentTheme.playerSection.fontColoropponent;
+        opponentPoints.style.color = opponentColor;
         opponentPoints.innerText = "0";
     }
 
@@ -158,7 +190,7 @@ export function writeSCSSVariables(): void {
 
     document.documentElement.style.setProperty(
         '--currentPlayer_FontColor',
-        currentTheme.playerCurrent.fontColor
+        playerColor
     );
 
     document.documentElement.style.setProperty(
@@ -172,7 +204,12 @@ export function writeSCSSVariables(): void {
 
     const currentPlayerImg = document.querySelector(".current-player-picture") as HTMLImageElement | null;
     if (currentPlayerImg) {
-        currentPlayerImg.src = currentTheme.playerCurrent.image;
+        currentPlayerImg.src = selectedPlayerImage || currentTheme.playerCurrent.image;
+    }
+
+    const currentPlayerName = document.querySelector(".current-player-name") as HTMLElement | null;
+    if (currentPlayerName) {
+        currentPlayerName.innerText = `Current player: ${selectedPlayer === "blue" ? "Blue" : "Orange"}`;
     }
 
 
@@ -236,6 +273,7 @@ export class Card {
     private createCardElement(frontImg: string): HTMLElement {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
+        cardDiv.dataset.cardId = String(this.id);
         const cardInner = document.createElement('div');
         cardInner.className = 'card-inner';
         const cardFront = document.createElement('div');
@@ -258,7 +296,7 @@ export class Card {
 
     private addClickListener() {
         this.element.addEventListener('click', () => {
-            this.flip();
+            counterCard(this.element);
             console.log(`Card ${this.name} clicked`);
         });
     }
@@ -278,6 +316,7 @@ export class Card {
 // 8 verschiedene Kartenpaare (insgesamt 16 Karten)
 export const cards: Card[] = [];
 export function createCards(anzahl: number): void {
+    resetCardCounter();
     cards.length = 0; // Array leeren, falls schon Karten vorhanden sind
     // Hole das aktuelle Theme für die Vorderseite
     const frontImg = themes[player.index].card.frontCardIMG;

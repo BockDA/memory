@@ -3,6 +3,7 @@ import { initOptions, renderOptions } from './pages/options/options';
 import { renderAbout } from './pages/about/about';
 import { renderPlayfield, writeSCSSVariables } from './playfield/playfield';
 import { createCards, initPlayfield } from './playfield/playfield';
+import { player } from './settings';
 
 
 const routes: Record<string, () => string> = {
@@ -40,8 +41,11 @@ function renderRoute(path: string): void {
         }
 
         if (path === '/playfield') {
+            const totalCards = [16, 24, 36].includes(player.BoardSize) ? player.BoardSize : 16;
+            const pairCount = totalCards / 2;
+
             writeSCSSVariables();
-            createCards(18);
+            createCards(pairCount);
             initPlayfield();
         }
 
