@@ -1,6 +1,6 @@
 import "./options.scss";
 import optionsTemplate from "./options.html?raw";
-import { player } from "./../../settings";
+import {player} from "./../../settings";
 
 console.log("Starte ts options.ts");
 
@@ -8,7 +8,7 @@ let ThemeIndex = 0;
 
 export const themes = [
   {
-    id: "1",
+    id: "theme-A",
     image: "/themes/ThemeVisual_one.png",
   },
   {
@@ -38,13 +38,25 @@ export function initOptions(): void {
   }
   radioselect(radiobtn);
   setLineselection();
+  initStartButton();
+}
+
+function initStartButton(): void {
+  const startBtn = document.getElementById("startBtn");
+  if (!startBtn) {
+    return;
+  }
+
+  startBtn.addEventListener("click", () => {
+    writeData();
+  });
 }
 
 function radioselect(radiobtn: NodeListOf<HTMLLabelElement>): void {
   radiobtn.forEach((btn, index) => {
     const radio = btn.querySelector('input[type="radio"]') as HTMLInputElement | null;
 
-    
+
 
     btn.addEventListener("mouseenter", () => {
       if (index > 3) return;
@@ -124,20 +136,12 @@ function selectionWrite(activeSelections: string[]): void {
   document.getElementById("boardSize")!.textContent = activeSelections[2];
 }
 
-const startBtn = document.getElementById("start-btn");
-if (startBtn) {
-  startBtn.addEventListener("click", () => {
-    console.log("Start button clicked");
-    writeData();
-  });
-}
-
 
 export function writeData(): void {
+console.log("write data wird aufgerufen");
   player.index = ThemeIndex;
   player.themes = document.getElementById("theme")!.textContent || "",
   player.choosePlayer = document.getElementById("player")!.textContent || "",
   player.BoardSize = parseInt(document.getElementById("boardSize")!.textContent || "0", 10)
- 
-}
 
+}

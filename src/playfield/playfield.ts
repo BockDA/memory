@@ -6,8 +6,11 @@ import cardsData from "../assets/JSON/cards.json";
 import type { Theme } from "../settings";
 import { player } from "../settings"
 
+
+console.log("Starte ts playfield.ts");
+
+
 export function renderPlayfield(): string {
-    console.log("Gebeb dom zurück");
     return playfieldTemplate
 }
 
@@ -67,7 +70,7 @@ function writeJSONData(): Theme {
             "borderWidth": themes[player.index].exitGameButton.borderWidth
         }
     }
-    console.log("Eintrag von themes", theme);
+
     return theme;
 }
 
@@ -302,7 +305,7 @@ export function createCards(anzahl: number): void {
         cards.push(new Card(i, name, picture, frontImg, backImg));
         cards.push(new Card(i, name, picture, frontImg, backImg));
     }
-    console.log("cards array", cards);
+
     cardMix();
 }
 
@@ -317,7 +320,7 @@ export function cardMix(): void {
 
 
 export function initPlayfield(): void {
-    console.log("init playfield");
+
     const cardField = document.querySelector('.card-Field');
     if (!cardField) return;
 
@@ -337,5 +340,3 @@ export function initPlayfield(): void {
         cardField.appendChild(card.element);
     });
 }
-
-
