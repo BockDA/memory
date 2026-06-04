@@ -1,0 +1,21 @@
+// seite fällt von oben runter, deswegen die animation
+@keyframes endscreen-drop {
+    from {
+        transform: translateY(-110%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.endscreen {
+
+    background-color: yellow;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: endscreen-drop 600ms ease-out;
+
+}

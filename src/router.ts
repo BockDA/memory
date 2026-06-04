@@ -3,6 +3,7 @@ import { initOptions, renderOptions } from './pages/options/options';
 import { renderAbout } from './pages/about/about';
 import { renderPlayfield, writeSCSSVariables } from './playfield/playfield';
 import { createCards, initPlayfield } from './playfield/playfield';
+import { renderEndscreen } from './endscreen/endscreen';
 import { player } from './settings';
 
 
@@ -10,7 +11,8 @@ const routes: Record<string, () => string> = {
     '/': renderHome,
     '/options': renderOptions,
     '/about': renderAbout,
-    '/playfield': renderPlayfield
+    '/playfield': renderPlayfield,
+    '/endscreen': renderEndscreen
 };
 
 function getApp(): HTMLElement {
@@ -40,6 +42,10 @@ function renderRoute(path: string): void {
             initOptions();
         }
 
+        if (path === '/endscreen') {
+            // aktuell keine zusätzliche Init-Logik nötig
+        }
+
         if (path === '/playfield') {
             const totalCards = [16, 24, 36].includes(player.BoardSize) ? player.BoardSize : 16;
             const pairCount = totalCards / 2;
@@ -48,6 +54,8 @@ function renderRoute(path: string): void {
             createCards(pairCount);
             initPlayfield();
         }
+
+
 
         app.classList.remove('fade');
         app.classList.add('show');
