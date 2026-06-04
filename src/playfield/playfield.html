@@ -17,23 +17,31 @@
             <p class="current-player-name">Current player: </p>
             <img  class="current-player-picture" />
         </div>
+        
         <div class="exit-play">
             <p class="board-size"></p>
             <a class="exit-btn"  data-link="/playfield">
             <img src="/public/pictureThemes/CodeVibes/exit.png" class="exit-icon" />
-                <button class="btn">
-                    Exit game
-                    <span class="icon icon-start"></span>
-                    <span class="icon icon-hover"></span>
-                </button>
+                              <span>Exit game</span> 
+                  
             </a>
         </div>
     </div>
     
 <div class="card-Field">
-<p>Test</p>
-<p class="selected-player"></p>
-    
+
+   
+</div>
+
+
+<div class="exit-modal" hidden aria-hidden="true">
+    <div class="exit-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="exit-modal-title">
+        <p class="exit-modal__title" id="exit-modal-title">Are you sure you want to quit the game?</p>
+        <div class="exit-modal__actions">
+            <button type="button" class="exit-modal__btn exit-modal__btn--continue">Back to game</button>
+            <button type="button" class="exit-modal__btn exit-modal__btn--abort" data-link="/options">Exit game</button>
+        </div>
+    </div>
 </div>
 
 

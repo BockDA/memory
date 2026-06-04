@@ -13,6 +13,7 @@
     width: 100vw;
     //Hilffuntionen
     color: white;
+
     // Ab hier Variabelen
     background-color: var(--playField_Background);
 
@@ -124,7 +125,7 @@
     align-items: center;
     gap: 10px;
     //Ab hier Variabelen
-    color: var(--currentPlayer_FontColor);
+    color: var(--textHome);
     font-size: var(--currentPlayer_FontSize);
     font-weight: var(--currentPlayer_FontWight);
 }
@@ -139,25 +140,98 @@
 
     //Ab hier Variabelen
     background-color: var(--exitGameButton_backgroundColor);
-    border-color: var(--exitGameButton_borderColor);
     border-radius: var(--exitGameButton_borderRadius);
     border-style: solid;
-    border-width: var(--exitGameButton_borderWidth);
-
-}
-
-.btn {
-    margin-left: 10px;
-    padding: 0;
-    border: 0;
-    background: transparent;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    //Ab hier Variabelen
+    border-width: 2px;
+    border-color: #4DD5BC;
+    transition: border-width 400ms ease;
     color: var(--exitGameButton_fontColor);
     font-size: var(--exitGameButton_fontSize);
     font-weight: var(--exitGameButton_fontWight);
+
+    &:hover {
+        cursor: pointer;
+        border-width: 4px;
+    }
+}
+
+.exit-modal {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    background-color: rgba($background_body, 0.6);
+    z-index: 999;
+}
+
+.exit-modal[hidden] {
+    display: none;
+}
+
+.exit-modal__dialog {
+    width: 539px;
+    height: 270px;
+    padding: 20px;
+    border-radius: var(--exitGameButton_borderRadius);
+    background-color: $background_settings;
+    color: $background_home;
+    border: 2px solid var(--exitGameButton_borderColor);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.exit-modal__title {
+    margin-bottom: 16px;
+    margin-top: 10px;
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.exit-modal__actions {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    width: 100%;
+    padding-bottom: 10px;
+}
+
+.exit-modal__btn {
+    height: 57px;
+    width: 182px;
+    padding: 0 16px;
+    border-style: solid;
+    border-width: 2px;
+
+
+    font-size: var(--exitGameButton_fontSize);
+    font-weight: var(--exitGameButton_fontWight);
+    cursor: pointer;
+
+    
+    &--continue {
+        color: var(--exitGameButton_fontColor);
+        border-color: #4DD5BC;
+        background-color: #66CFBC;
+        &:hover {
+                background-color: #86e9d5f3;
+                border-color: #4DD5BC;
+                border-width: 4px;
+            }
+    }
+
+    &--abort {
+        color:#4DD5BC;
+        background-color:#4dd5bc2d;
+        border-color: #4dd5bc2d;
+        &:hover {
+                background-color: #86e9d54f;
+                border-color: #4DD5BC;
+                border-width: 4px;
+            }
+    }
 
 }

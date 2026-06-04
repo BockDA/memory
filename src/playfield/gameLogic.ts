@@ -22,7 +22,6 @@ function renderHud(): void {
 	const opponentNameEl = document.querySelector('.opponent-name') as HTMLElement | null;
 	const playerPointsEl = document.querySelector('.player-points') as HTMLElement | null;
 	const opponentPointsEl = document.querySelector('.opponent-points') as HTMLElement | null;
-	const currentPlayerNameEl = document.querySelector('.current-player-name') as HTMLElement | null;
 	const currentPlayerImgEl = document.querySelector('.current-player-picture') as HTMLImageElement | null;
 
 	if (playerNameEl && playerPointsEl) {
@@ -35,9 +34,7 @@ function renderHud(): void {
 		opponentPointsEl.innerText = String(scores[opponentSide]);
 	}
 
-	if (currentPlayerNameEl) {
-		currentPlayerNameEl.innerText = `Current player: ${currentTurn === 'blue' ? 'Blue' : 'Orange'}`;
-	}
+	
 
 	if (currentPlayerImgEl && playerImages[currentTurn]) {
 		currentPlayerImgEl.src = playerImages[currentTurn];
@@ -109,5 +106,5 @@ export function counterCard(cardElement: HTMLElement): void {
 		currentTurn = currentTurn === 'blue' ? 'orange' : 'blue';
 		renderHud();
 		boardLocked = false;
-	}, 800);
+	}, 1000);
 }

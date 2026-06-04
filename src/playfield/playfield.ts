@@ -207,11 +207,7 @@ export function writeSCSSVariables(): void {
         currentPlayerImg.src = selectedPlayerImage || currentTheme.playerCurrent.image;
     }
 
-    const currentPlayerName = document.querySelector(".current-player-name") as HTMLElement | null;
-    if (currentPlayerName) {
-        currentPlayerName.innerText = `Current player: ${selectedPlayer === "blue" ? "Blue" : "Orange"}`;
-    }
-
+   
 
     //Exit Button
     document.documentElement.style.setProperty(
@@ -360,6 +356,39 @@ export function cardMix(): void {
 
 export function initPlayfield(): void {
 
+    const modal = document.querySelector('.exit-modal') as HTMLElement | null;
+    const exitBtn = document.querySelector('.exit-btn') as HTMLAnchorElement | null;
+    const continueBtn = document.querySelector('.exit-modal__btn--continue') as HTMLButtonElement | null;
+    const abortBtn = document.querySelector('.exit-modal__btn--abort') as HTMLButtonElement | null;
+
+    //prüfen, ob alle Elemente vorhanden sind 
+    if (modal && exitBtn && continueBtn && abortBtn && modal.dataset.wired !== 'true') {
+        modal.dataset.wired = 'true';
+
+        const setModalOpen = (open: boolean) => {
+            modal.hidden = !open;
+            modal.setAttribute('aria-hidden', String(!open));
+        };
+
+        setModalOpen(false);
+
+        exitBtn.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            setModalOpen(true);
+        });
+
+        continueBtn.addEventListener('click', () => {
+            setModalOpen(false);
+        });
+
+        abortBtn.addEventListener('click', () => {
+            setModalOpen(false);
+            resetCardCounter();
+            cards.length = 0;
+        });
+    }
+
     const cardField = document.querySelector('.card-Field');
     if (!cardField) return;
 
@@ -379,3 +408,6 @@ export function initPlayfield(): void {
         cardField.appendChild(card.element);
     });
 }
+
+
+
