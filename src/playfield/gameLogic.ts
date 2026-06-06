@@ -1,6 +1,11 @@
+import { player } from '../settings';
+
 const openCards: HTMLElement[] = [];
 let boardLocked = false;
 type PlayerColor = 'blue' | 'orange';
+
+export type GameResult = 'win' | 'loss' | 'draw';
+export let playerResult: GameResult = 'draw';
 
 const scores: Record<PlayerColor, number> = {
 	blue: 0,
@@ -84,7 +89,22 @@ function allCardsFlipped(): boolean {
 }
 
 export function finishGame(): void {
-	window.history.pushState({}, '', '/endscreen');
+	const myColor = player.choosePlayer;
+	const opponentColor: PlayerColor = myColor === 'blue' ? 'orange' : 'blue';
+	const myScore = scores[myColor];
+	const opponentScore = scores[opponentColor];
+
+	if (myScore > opponentScore) {
+		playerResult = 'win';
+	} else if (myScore < opponentScore) {
+		playerResult = 'loss';
+	} else {
+		playerResult = 'draw';
+	}
+
+	console.log(`Game finished. Player result: ${playerResult} (Player: ${myScore}, Opponent: ${opponentScore})`);
+	const route = playerResult === 'loss' ? '/gameover' : '/winner';
+	window.history.pushState({}, '', route);
 	window.dispatchEvent(new PopStateEvent('popstate'));
 }
 

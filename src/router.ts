@@ -3,7 +3,7 @@ import { initOptions, renderOptions } from './pages/options/options';
 import { renderAbout } from './pages/about/about';
 import { renderPlayfield, writeSCSSVariables } from './playfield/playfield';
 import { createCards, initPlayfield } from './playfield/playfield';
-import { renderEndscreen } from './endscreen/endscreen';
+import { renderEndscreen, renderWinner, renderGameOver } from './endscreen/endscreen';
 import { player } from './settings';
 
 
@@ -12,7 +12,9 @@ const routes: Record<string, () => string> = {
     '/options': renderOptions,
     '/about': renderAbout,
     '/playfield': renderPlayfield,
-    '/endscreen': renderEndscreen
+    '/endscreen': renderEndscreen,
+    '/winner': renderWinner,
+    '/gameover': renderGameOver,
 };
 
 function getApp(): HTMLElement {
@@ -41,6 +43,7 @@ function renderRoute(path: string): void {
         if (path === '/options') {
             initOptions();
         }
+
 
         if (path === '/endscreen') {
             // aktuell keine zusätzliche Init-Logik nötig
