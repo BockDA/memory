@@ -76,6 +76,18 @@ export function initGameLogic(startingPlayer: PlayerColor, blueImage = '', orang
 	renderHud();
 }
 
+function allCardsFlipped(): boolean {
+	const allCards = document.querySelectorAll('.card');
+	return allCards.length > 0 && Array.from(allCards).every(card =>
+		card.querySelector('.card-inner')?.classList.contains('flipped') ?? false
+	);
+}
+
+export function finishGame(): void {
+	window.history.pushState({}, '', '/endscreen');
+	window.dispatchEvent(new PopStateEvent('popstate'));
+}
+
 export function counterCard(cardElement: HTMLElement): void {
 	if (boardLocked || isFlipped(cardElement)) {
 		return;
@@ -95,6 +107,9 @@ export function counterCard(cardElement: HTMLElement): void {
 		scores[currentTurn] += 1;
 		openCards.length = 0;
 		renderHud();
+		if (allCardsFlipped()) {
+			finishGame();
+		}
 		return;
 	}
 
@@ -108,3 +123,5 @@ export function counterCard(cardElement: HTMLElement): void {
 		boardLocked = false;
 	}, 1000);
 }
+
+
