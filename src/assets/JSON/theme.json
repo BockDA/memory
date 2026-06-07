@@ -7,7 +7,7 @@
                 "backgroundColor": "#303131"
             },
             "card": {
-                "frontCardIMG": "./public/images/Cards/FrontTheme1.png"
+                "frontCardIMG": "./public/images/Cards/Themes1/FrontTheme1.png"
             },
             "playerHeader": {
                 "backgroundColor": "#303131",
@@ -39,6 +39,20 @@
                 "fontSize": "20px",
                 "fontWight": 700,
                 "borderWidth": "0px"
+            },
+            "gameOver": {
+                "backgroundColor": "#303131",
+                "fontColor": "#ffffff",
+                "fontSize": "36px",
+                "fontWight": 700,
+                "fontFamily": "Arial, sans-serif"
+            }
+            ,"winner": {
+                "backgroundColor": "#303131",
+                "fontColor": "#ffffff",
+                "fontSize": "36px",
+                "fontWight": 700,
+                "fontFamily": "Arial, sans-serif"
             }
         },
         {
