@@ -62,7 +62,7 @@
                 "backgroundColor": "#303131"
             },
             "card": {
-                "frontCardIMG": "./public/images/Cards/FrontTheme1.png"
+                "frontCardIMG": "./public/images/Cards/Themes2/FrontTheme2.png"
             },
             "playerHeader": {
                 "backgroundColor": "#535d75",

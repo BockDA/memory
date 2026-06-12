@@ -318,24 +318,29 @@ export function createCards(anzahl: number): void {
     const frontImg = themes[player.index].card.frontCardIMG;
     // Rückseitenbilder aus cards.json
     const cardBacks = cardsData.card;
-    const cardBackObj: any = cardBacks && cardBacks[0] ? cardBacks[0] : {};
+    const cardBackObj: any = cardBacks.find((cardSet) => cardSet.id === player.index + 1) ?? cardBacks[0] ?? {};
 
-    // Ermittle die Anzahl der verfügbaren Symbole (Bilder)
-    // Annahme: Die Bilder sind von card1.png bis cardN.png vorhanden
-    // Wir zählen, wie viele backCardIMG-Keys es gibt
-    const availableImages = Object.keys(cardBackObj)
+    const imageKeys = Object.keys(cardBackObj)
         .filter(key => key.startsWith("backCardIMG"))
-        .length;
-    // Fallback: Wenn keine gefunden, mindestens 1
-    const symbolCount = availableImages > 0 ? availableImages : 1;
+        .sort((a, b) => {
+            const numberA = Number(a.replace("backCardIMG", ""));
+            const numberB = Number(b.replace("backCardIMG", ""));
+            return numberA - numberB;
+        });
+
+    for (let i = imageKeys.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [imageKeys[i], imageKeys[j]] = [imageKeys[j], imageKeys[i]];
+    }
+
+    const selectedImageKeys = imageKeys.length > 0 ? imageKeys : ["backCardIMG1"];
 
     for (let i = 1; i <= anzahl; i++) {
-        // Ermittle den Index für das Bild (1-basiert, rotiert bei Überschreitung)
-        const imgIndex = ((i - 1) % symbolCount) + 1;
+        const imageKey = selectedImageKeys[(i - 1) % selectedImageKeys.length];
+        const imgIndex = Number(imageKey.replace("backCardIMG", ""));
         const name = `card${imgIndex}`;
         const picture = `/cards/card${imgIndex}.png`;
-        // Rückseitenbild dynamisch aus JSON holen, mit any-Typ
-        const backImg = cardBackObj[`backCardIMG${imgIndex}`] || "";
+        const backImg = cardBackObj[imageKey] || "";
         // Jedes Kartenpaar zweimal hinzufügen
         cards.push(new Card(i, name, picture, frontImg, backImg));
         cards.push(new Card(i, name, picture, frontImg, backImg));

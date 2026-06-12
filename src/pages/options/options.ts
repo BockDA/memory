@@ -4,8 +4,6 @@ import {player} from "./../../settings";
 
 console.log("Starte ts options.ts");
 
-let ThemeIndex = 0;
-
 export const themes = [
   {
     id: "theme-A",
@@ -73,7 +71,6 @@ function radioselect(radiobtn: NodeListOf<HTMLLabelElement>): void {
       console.log("drücken", index);
       if (index <= 3) {
         setpicture(index);
-        ThemeIndex = index;
           }
 
     });
@@ -148,12 +145,13 @@ export function writeData(): void {
     ? Math.max(parseInt(selectedThemeRadio.value.replace("theme-", ""), 10) - 1, 0)
     : 0;
 
-  ThemeIndex = selectedThemeIndex;
   player.index = selectedThemeIndex;
   player.themes = themes[selectedThemeIndex]?.id || "theme-A";
   player.choosePlayer = selectedPlayerRadio?.value === "2" ? "orange" : "blue";
-  player.BoardSize = selectedBoardSizeRadio
-    ? parseInt(selectedBoardSizeRadio.value, 10) * 8 + 8
+  const selectedBoardSize = selectedBoardSizeRadio
+    ? parseInt(selectedBoardSizeRadio.value, 10)
     : 16;
+
+  player.BoardSize = [16, 24, 36].includes(selectedBoardSize) ? selectedBoardSize : 16;
 
 }
