@@ -1,4 +1,30 @@
-<section class="endscreen">
-    <h2>Gameover</h2>
-    
+<section class="endscreen game-over">
+    <div class="game-over__confetti" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <h2 class="game-over__title">Game over</h2>
+
+    <div class="game-over__score">
+        <p class="game-over__label">Final score</p>
+        <div class="game-over__score-box">
+            <span class="game-over__score-item game-over__score-item--blue">
+                <span class="game-over__marker"></span>
+                <span class="game-over__score-name">Blue</span> <span data-score-blue>0</span>
+            </span>
+            <span class="game-over__score-item game-over__score-item--orange">
+                <span class="game-over__marker"></span>
+                <span class="game-over__score-name">Orange</span> <span data-score-orange>0</span>
+            </span>
+        </div>
+    </div>
+
+    <div class="game-over__winner">
+        <p class="game-over__winner-label">The winner is</p>
+        <p class="game-over__winner-name" data-winner-name>ORANGE PLAYER</p>
+        <img class="game-over__winner-icon" data-winner-icon src="/images/PlayField/chess_pawn_orange.png" alt="" />
+        <a class="game-over__button" data-link="/">Back to start</a>
+    </div>
 </section>

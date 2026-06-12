@@ -3,7 +3,7 @@ import { initOptions, renderOptions } from './pages/options/options';
 import { renderAbout } from './pages/about/about';
 import { renderPlayfield, writeSCSSVariables } from './playfield/playfield';
 import { createCards, initPlayfield } from './playfield/playfield';
-import { renderEndscreen, renderWinner, renderGameOver } from './endscreen/endscreen';
+import { initGameOver, initWinner, renderEndscreen, renderWinner, renderGameOver } from './endscreen/endscreen';
 import { player } from './settings';
 
 
@@ -47,6 +47,14 @@ function renderRoute(path: string): void {
 
         if (path === '/endscreen') {
             // aktuell keine zusätzliche Init-Logik nötig
+        }
+
+        if (path === '/gameover') {
+            initGameOver();
+        }
+
+        if (path === '/winner') {
+            initWinner();
         }
 
         if (path === '/playfield') {

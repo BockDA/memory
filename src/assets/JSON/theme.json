@@ -42,18 +42,33 @@
                 "popupButtonBorderRadius": "0px"
             },
             "gameOver": {
+                "mode": "score",
                 "backgroundColor": "#303131",
-                "fontColor": "#ffffff",
-                "fontSize": "36px",
+                "titleText": "Game over",
+                "titleColor": "#66CFBC",
+                "titleShadowColor": "#A7FFF2",
+                "labelColor": "#ffffff",
+                "scoreBoxBackgroundColor": "#415652",
+                "blueColor": "#2BB1FF",
+                "orangeColor": "#F58E39",
+                "fontSize": "82px",
                 "fontWight": 700,
-                "fontFamily": "Arial, sans-serif"
+                "fontFamily": "Red Rose, serif",
+                "buttonBackgroundColor": "#415652",
+                "buttonBorderColor": "#4DD5BC",
+                "buttonFontColor": "#ffffff",
+                "buttonBorderRadius": "0px"
             }
             ,"winner": {
                 "backgroundColor": "#303131",
-                "fontColor": "#ffffff",
-                "fontSize": "36px",
-                "fontWight": 700,
-                "fontFamily": "Arial, sans-serif"
+                "labelColor": "#ffffff",
+                "orangeColor": "#F58E39",
+                "blueColor": "#2BB1FF",
+                "drawColor": "#66CFBC",
+                "buttonBackgroundColor": "#415652",
+                "buttonBorderColor": "#4DD5BC",
+                "buttonFontColor": "#ffffff",
+                "fontFamily": "Almarai, sans-serif"
             }
         },
         {
@@ -96,6 +111,35 @@
                 "fontWight": 700,
                 "borderWidth": "2px",
                 "popupButtonBorderRadius": "8px"
+            },
+            "gameOver": {
+                "mode": "score",
+                "backgroundColor": "#285565",
+                "titleText": "GAME OVER",
+                "titleColor": "#FF1C7A",
+                "titleShadowColor": "transparent",
+                "labelColor": "#ffffff",
+                "scoreBoxBackgroundColor": "#ffffff",
+                "blueColor": "#0B8EE8",
+                "orangeColor": "#F58E39",
+                "fontSize": "60px",
+                "fontWight": 700,
+                "fontFamily": "Red Rose, serif",
+                "buttonBackgroundColor": "#415652",
+                "buttonBorderColor": "#4DD5BC",
+                "buttonFontColor": "#ffffff",
+                "buttonBorderRadius": "0px"
+            },
+            "winner": {
+                "backgroundColor": "#303131",
+                "labelColor": "#ffffff",
+                "blueColor": "#0B8EE8",
+                "orangeColor": "#F58E39",
+                "drawColor": "#66CFBC",
+                "buttonBackgroundColor": "#415652",
+                "buttonBorderColor": "#4DD5BC",
+                "buttonFontColor": "#ffffff",
+                "fontFamily": "Almarai, sans-serif"
             }
         }
     ]

@@ -1,4 +1,21 @@
-<section class="endscreen">
-    <h2>Winner</h2>
-   
+<section class="endscreen winner-screen">
+    <div class="winner-screen__confetti" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="winner-screen__winner">
+        <p class="winner-screen__label">The winner is</p>
+        <h2 class="winner-screen__name" data-winner-name>ORANGE PLAYER</h2>
+        <img class="winner-screen__icon" data-winner-icon src="/images/PlayField/playerOrange.png" alt="" />
+    </div>
+
+    <div class="winner-screen__draw">
+        <p class="winner-screen__label">It's a</p>
+        <h2 class="winner-screen__name">DRAW</h2>
+        <div class="winner-screen__draw-icon" aria-hidden="true">&#9878;</div>
+    </div>
+
+    <a class="winner-screen__button" data-link="/">Back to start</a>
 </section>

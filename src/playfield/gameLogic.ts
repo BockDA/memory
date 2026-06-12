@@ -81,6 +81,13 @@ export function initGameLogic(startingPlayer: PlayerColor, blueImage = '', orang
 	renderHud();
 }
 
+export function getScoreSnapshot(): Record<PlayerColor, number> {
+	return {
+		blue: scores.blue,
+		orange: scores.orange,
+	};
+}
+
 function allCardsFlipped(): boolean {
 	const allCards = document.querySelectorAll('.card');
 	return allCards.length > 0 && Array.from(allCards).every(card =>
