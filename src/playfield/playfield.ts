@@ -260,14 +260,16 @@ export class Card {
     name: string;
     picture: string;
     backImg: string;
+    matchId: string;
     element: HTMLElement;
 
 
-    constructor(id: number, name: string, picture: string, frontImg: string, backImg: string) {
+    constructor(id: number, name: string, picture: string, frontImg: string, backImg: string, matchId: string) {
         this.id = id;
         this.name = name;
         this.picture = picture;
         this.backImg = backImg;
+        this.matchId = matchId;
         this.element = this.createCardElement(frontImg);
         this.addClickListener();
     }
@@ -276,6 +278,7 @@ export class Card {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
         cardDiv.dataset.cardId = String(this.id);
+        cardDiv.dataset.cardMatchId = this.matchId;
         const cardInner = document.createElement('div');
         cardInner.className = 'card-inner';
         const cardFront = document.createElement('div');
@@ -348,8 +351,8 @@ export function createCards(anzahl: number): void {
         const picture = `/cards/card${imgIndex}.png`;
         const backImg = cardBackObj[imageKey] || "";
         // Jedes Kartenpaar zweimal hinzufügen
-        cards.push(new Card(i, name, picture, frontImg, backImg));
-        cards.push(new Card(i, name, picture, frontImg, backImg));
+        cards.push(new Card(i, name, picture, frontImg, backImg, imageKey));
+        cards.push(new Card(i, name, picture, frontImg, backImg, imageKey));
     }
 
     cardMix();

@@ -116,7 +116,7 @@ export function finishGame(): void {
 }
 
 export function counterCard(cardElement: HTMLElement): void {
-	if (boardLocked || isFlipped(cardElement)) {
+	if (boardLocked || isFlipped(cardElement) || cardElement.dataset.matched === 'true') {
 		return;
 	}
 
@@ -127,20 +127,26 @@ export function counterCard(cardElement: HTMLElement): void {
 		return;
 	}
 
+	boardLocked = true;
 	const [firstCard, secondCard] = openCards;
-	const isMatch = firstCard.dataset.cardId === secondCard.dataset.cardId;
+	const firstMatchId = firstCard.dataset.cardMatchId ?? firstCard.dataset.cardId;
+	const secondMatchId = secondCard.dataset.cardMatchId ?? secondCard.dataset.cardId;
+	const isMatch = firstMatchId === secondMatchId;
 
 	if (isMatch) {
+		firstCard.dataset.matched = 'true';
+		secondCard.dataset.matched = 'true';
 		scores[currentTurn] += 1;
 		openCards.length = 0;
 		renderHud();
 		if (allCardsFlipped()) {
 			finishGame();
+			return;
 		}
+		boardLocked = false;
 		return;
 	}
 
-	boardLocked = true;
 	setTimeout(() => {
 		setFlipped(firstCard, false);
 		setFlipped(secondCard, false);
