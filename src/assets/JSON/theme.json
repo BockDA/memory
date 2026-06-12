@@ -33,12 +33,13 @@
             },
             "exitGameButton": {
                 "backgroundColor": "#415652",
-                "borderColor": "#1e1e1e",
+                "borderColor": "#4DD5BC",
                 "borderRadius": "0px",
                 "fontColor": "#ffffff",
                 "fontSize": "20px",
                 "fontWight": 700,
-                "borderWidth": "0px"
+                "borderWidth": "2px",
+                "popupButtonBorderRadius": "0px"
             },
             "gameOver": {
                 "backgroundColor": "#303131",
@@ -87,13 +88,14 @@
                 "fontWight": 400
             },
             "exitGameButton": {
-                "backgroundColor": "#05f5875",
-                "borderColor": "#E71C4F",
-                "borderRadius": "10px",
+                "backgroundColor": "#21384F",
+                "borderColor": "#FF0F68",
+                "borderRadius": "4px",
                 "fontColor": "#ffffff",
                 "fontSize": "20px",
                 "fontWight": 700,
-                "borderWidth": "4px"
+                "borderWidth": "2px",
+                "popupButtonBorderRadius": "8px"
             }
         }
     ]

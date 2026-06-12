@@ -67,7 +67,8 @@ function writeJSONData(): Theme {
             "fontColor": themes[player.index].exitGameButton.fontColor,
             "fontSize": themes[player.index].exitGameButton.fontSize,
             "fontWight": themes[player.index].exitGameButton.fontWight,
-            "borderWidth": themes[player.index].exitGameButton.borderWidth
+            "borderWidth": themes[player.index].exitGameButton.borderWidth,
+            "popupButtonBorderRadius": themes[player.index].exitGameButton.popupButtonBorderRadius
         }
     }
 
@@ -228,6 +229,11 @@ export function writeSCSSVariables(): void {
     document.documentElement.style.setProperty(
         '--exitGameButton_borderWidth',
         currentTheme.exitGameButton.borderWidth
+    );
+
+    document.documentElement.style.setProperty(
+        '--exitGameButton_popupButtonBorderRadius',
+        currentTheme.exitGameButton.popupButtonBorderRadius
     );
 
 

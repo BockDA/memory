@@ -149,8 +149,8 @@
     background-color: var(--exitGameButton_backgroundColor);
     border-radius: var(--exitGameButton_borderRadius);
     border-style: solid;
-    border-width: 2px;
-    border-color: #4DD5BC;
+    border-width: var(--exitGameButton_borderWidth);
+    border-color: var(--exitGameButton_borderColor);
     transition: border-width 400ms ease;
     color: var(--exitGameButton_fontColor);
     font-size: var(--exitGameButton_fontSize);
@@ -212,6 +212,7 @@
     padding: 0 16px;
     border-style: solid;
     border-width: 2px;
+    border-radius: var(--exitGameButton_popupButtonBorderRadius);
 
 
     font-size: var(--exitGameButton_fontSize);
@@ -221,22 +222,20 @@
     
     &--continue {
         color: var(--exitGameButton_fontColor);
-        border-color: #4DD5BC;
-        background-color: #66CFBC;
+        border-color: var(--exitGameButton_borderColor);
+        background-color: var(--exitGameButton_borderColor);
         &:hover {
-                background-color: #86e9d5f3;
-                border-color: #4DD5BC;
+                border-color: var(--exitGameButton_borderColor);
                 border-width: 4px;
             }
     }
 
     &--abort {
-        color:#4DD5BC;
-        background-color:#4dd5bc2d;
-        border-color: #4dd5bc2d;
+        color: var(--exitGameButton_borderColor);
+        background-color: transparent;
+        border-color: var(--exitGameButton_borderColor);
         &:hover {
-                background-color: #86e9d54f;
-                border-color: #4DD5BC;
+                border-color: var(--exitGameButton_borderColor);
                 border-width: 4px;
             }
     }

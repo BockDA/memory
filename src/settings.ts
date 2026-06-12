@@ -63,5 +63,6 @@ export interface Theme {
         "fontSize": string,
         "fontWight": number,
         "borderWidth": string,
+        "popupButtonBorderRadius": string,
     }
 }
