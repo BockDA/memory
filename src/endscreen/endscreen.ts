@@ -5,6 +5,7 @@ import { themes } from "../assets/JSON/theme.json";
 import { player } from "../settings";
 import { getScoreSnapshot } from "../playfield/gameLogic";
 import "./endscreen.scss";
+import "./gameOver.scss";
 
 export function renderEndscreen(): string {
 	return endscreenTemplate;
@@ -27,7 +28,7 @@ function getThemeImageByPlayerColor(
 		currentTheme.playerSection.imagePlayerTwo,
 	];
 
-	return imagePool.find((image) => image.toLowerCase().includes(playerColor)) ?? imagePool[0];
+	return playerColor === "blue" ? imagePool[0] : imagePool[1];
 }
 
 export function initWinner(): void {
@@ -40,6 +41,7 @@ export function initWinner(): void {
 	const screen = document.querySelector('.winner-screen') as HTMLElement | null;
 	const winnerName = document.querySelector('[data-winner-name]') as HTMLElement | null;
 	const winnerIcon = document.querySelector('[data-winner-icon]') as HTMLImageElement | null;
+	const drawIcon = document.querySelector('[data-draw-icon]') as HTMLImageElement | null;
 	const winnerColorValue = winnerColor === "blue" ? winnerTheme.blueColor : winnerTheme.orangeColor;
 
 	document.documentElement.style.setProperty('--winner_Background', winnerTheme.backgroundColor);
@@ -61,6 +63,12 @@ export function initWinner(): void {
 
 	if (winnerIcon) {
 		winnerIcon.src = winnerImage;
+	}
+
+	if (drawIcon) {
+		drawIcon.src = player.index === 1
+			? "/pictureThemes/CodeVibes/drawTheme2.png"
+			: "/pictureThemes/CodeVibes/drawTheme1.png";
 	}
 }
 

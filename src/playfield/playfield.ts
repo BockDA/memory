@@ -80,6 +80,7 @@ function writeJSONData(): Theme {
 //wird in  routers aufgerufen, wenn die playfield seite aufgerufen wird, um die scss variablen zu setzen
 export function writeSCSSVariables(): void {
     const currentTheme = writeJSONData()
+    const playfield = document.querySelector(".playfield") as HTMLElement | null;
     const selectedPlayer: "blue" | "orange" = player.choosePlayer === "orange" ? "orange" : "blue";
     const opponentPlayer: "blue" | "orange" = selectedPlayer === "blue" ? "orange" : "blue";
 
@@ -95,22 +96,19 @@ export function writeSCSSVariables(): void {
         currentTheme.playerSection.imagePlayerTwo,
     ];
 
-    const findImageByColor = (color: "blue" | "orange"): string | null => {
-        const normalizedColor = color.toLowerCase();
-        return imagePool.find((img) => img.toLowerCase().includes(normalizedColor)) ?? null;
-    };
-
     const selectedPlayerImage =
-        findImageByColor(selectedPlayer) ??
         (selectedPlayer === "blue" ? imagePool[0] : imagePool[1]);
     const opponentPlayerImage =
-        findImageByColor(opponentPlayer) ??
         (selectedPlayer === "blue" ? imagePool[1] : imagePool[0]);
 
     const blueImage = selectedPlayer === "blue" ? selectedPlayerImage : opponentPlayerImage;
     const orangeImage = selectedPlayer === "orange" ? selectedPlayerImage : opponentPlayerImage;
 
     initGameLogic(selectedPlayer, blueImage, orangeImage);
+
+    if (playfield) {
+        playfield.classList.toggle("playfield--theme2", player.index === 1);
+    }
 
     const playerImg = document.querySelector(".player-picture") as HTMLImageElement | null;
     if (playerImg) {

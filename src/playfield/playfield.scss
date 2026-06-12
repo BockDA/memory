@@ -118,6 +118,13 @@
 
 }
 
+.playfield--theme2 {
+    .player-name,
+    .opponent-name {
+        display: none;
+    }
+}
+
 .player-picture,
 .opponent-picture {
     width: 24px;
