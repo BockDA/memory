@@ -39,7 +39,7 @@ function renderHud(): void {
 		opponentPointsEl.innerText = String(scores[opponentSide]);
 	}
 
-	
+
 
 	if (currentPlayerImgEl && playerImages[currentTurn]) {
 		currentPlayerImgEl.src = playerImages[currentTurn];
@@ -134,6 +134,8 @@ export function counterCard(cardElement: HTMLElement): void {
 	const isMatch = firstMatchId === secondMatchId;
 
 	if (isMatch) {
+		console.log('Karten gleich');
+		finishGame();
 		firstCard.dataset.matched = 'true';
 		secondCard.dataset.matched = 'true';
 		scores[currentTurn] += 1;
@@ -156,5 +158,3 @@ export function counterCard(cardElement: HTMLElement): void {
 		boardLocked = false;
 	}, 1000);
 }
-
-
