@@ -22,7 +22,6 @@ export interface Theme {
 
     id: number;
     title: string;
-
     playField: {
         "background": string;
     };
