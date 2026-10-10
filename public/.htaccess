@@ -1,0 +1,17 @@
+# Single Page Application: Alle Adressen, zu denen es keine echte Datei gibt
+# (z. B. /options oder /playfield), liefern index.html aus.
+# Der Router in router.ts zeigt dann die passende Seite an.
+# Ohne diese Regel ergibt ein Neuladen auf einer Unterseite einen 404-Fehler.
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    # Die App liegt im Unterordner – muss zu "base" in vite.config.ts passen
+    RewriteBase /Projekte/memory/
+
+    # Existiert die angefragte Datei oder der Ordner wirklich, normal ausliefern
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+
+    # Sonst index.html ausliefern
+    RewriteRule ^ index.html [L]
+</IfModule>

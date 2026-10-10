@@ -9,6 +9,8 @@
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 
+### [▶️ Live spielen](https://christian-bock.developerakademie.net/Projekte/memory/)
+
 </div>
 
 ---
@@ -61,7 +63,11 @@ npm install
 npm run dev
 ```
 
-Danach ist das Spiel unter **http://localhost:5173** erreichbar.
+Danach ist das Spiel unter **http://localhost:5173/Projekte/memory/** erreichbar.
+
+> [!NOTE]
+> Der Pfad `/Projekte/memory/` kommt aus der Einstellung `base` in `vite.config.ts`
+> (siehe [Deployment](#-deployment-per-ftp)). `http://localhost:5173` allein zeigt keine Seite.
 
 ### Verfügbare Befehle
 
@@ -71,12 +77,46 @@ Danach ist das Spiel unter **http://localhost:5173** erreichbar.
 | `npm run build`   | Prüft die Typen und erstellt eine optimierte Version in `dist/` |
 | `npm run preview` | Zeigt die gebaute Version aus `dist/` lokal an             |
 
+## 🌐 Deployment per FTP
+
+Nach dem Build besteht das Spiel nur aus statischen Dateien (HTML, CSS, JavaScript, Bilder).
+Ein normaler Webspace mit Apache reicht aus, ein Node.js-Server ist nicht nötig.
+
+1. **Bauen:**
+   ```bash
+   npm run build
+   ```
+2. **Hochladen:** Den **Inhalt** des Ordners `dist/` per FTP (z. B. mit FileZilla)
+   in den Zielordner auf dem Server kopieren – inklusive der versteckten Datei `.htaccess`.
+3. **Aufrufen:** `https://<deine-domain>/Projekte/memory/`
+
+### In einem anderen Ordner veröffentlichen
+
+Das Spiel ist für den Unterordner `/Projekte/memory/` eingerichtet.
+Für einen anderen Ort müssen **zwei Stellen** gleich angepasst werden:
+
+| Datei              | Einstellung                      |
+| ------------------ | -------------------------------- |
+| `vite.config.ts`   | `base: '/Projekte/memory/'`      |
+| `public/.htaccess` | `RewriteBase /Projekte/memory/`  |
+
+Liegt das Spiel direkt an der Domain-Wurzel, ist in beiden Dateien `/` einzutragen.
+
+### Warum die `.htaccess` nötig ist
+
+Der Router ändert die Adresse (z. B. auf `/Projekte/memory/options`), ohne dass dafür eine Datei
+auf dem Server existiert. Beim Neuladen (F5) würde der Server deshalb mit **404** antworten.
+Die `.htaccess` sorgt dafür, dass in diesem Fall `index.html` ausgeliefert wird –
+der Router zeigt dann die richtige Seite an.
+
 ## 🗂️ Projektstruktur
 
 ```
 memory/
-├── index.html               # Einstiegspunkt der App
-├── public/                  # Bilder, Fonts und Theme-Grafiken
+├── index.html               # Einstiegspunkt der App (inkl. Favicon)
+├── vite.config.ts           # Vite-Einstellungen, u. a. Basis-Pfad für den Server
+├── public/                  # Bilder, Fonts und Theme-Grafiken (unverändert nach dist/)
+│   └── .htaccess            # Server-Regel: Unterseiten liefern index.html aus
 └── src/
     ├── main.ts              # Startet die App und fängt Link-Klicks ab
     ├── router.ts            # Eigener Router (History API)
@@ -101,6 +141,10 @@ memory/
   und per `innerHTML` in die Seite eingesetzt.
 - **Eigener Router:** `router.ts` ordnet jedem Pfad eine Render- und eine Init-Funktion zu
   und nutzt die History API (`pushState` / `popstate`) für die Navigation ohne Neuladen.
+  Den Basis-Pfad liest er aus `import.meta.env.BASE_URL`, damit die App auch in einem
+  Unterordner läuft.
+- **Relative Bildpfade:** Bilder in Templates, TypeScript und JSON werden ohne führenden `/`
+  angegeben (`images/…`), damit sie unabhängig vom Ordner auf dem Server gefunden werden.
 - **Themes über JSON:** Farben und Bilder stehen in `theme.json` und werden zur Laufzeit
   als CSS-Variablen gesetzt. Dadurch braucht jedes Theme kein eigenes Stylesheet.
 - **Spiellogik getrennt vom Aufbau:** `playfield.ts` erzeugt die Karten,

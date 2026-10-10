@@ -61,8 +61,8 @@ export function initWinner(): void {
 
 	if (drawIcon) {
 		drawIcon.src = player.index === 1
-			? "/pictureThemes/CodeVibes/drawTheme2.png"
-			: "/pictureThemes/CodeVibes/drawTheme1.png";
+			? "pictureThemes/CodeVibes/drawTheme2.png"
+			: "pictureThemes/CodeVibes/drawTheme1.png";
 	}
 }
 

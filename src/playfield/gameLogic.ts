@@ -1,4 +1,5 @@
 import { player } from '../settings';
+import { navigateTo } from '../router';
 
 const openCards: HTMLElement[] = [];
 let boardLocked = false;
@@ -93,8 +94,7 @@ export function finishGame(): void {
 		playerResult = 'draw';
 	}
 	const route = playerResult === 'loss' ? '/gameover' : '/winner';
-	window.history.pushState({}, '', route);
-	window.dispatchEvent(new PopStateEvent('popstate'));
+	navigateTo(route);
 }
 
 export function counterCard(cardElement: HTMLElement): void {

@@ -5,19 +5,19 @@ import { player, savePlayer } from "./../../settings";
 export const themes = [
   {
     id: "theme-A",
-    image: "/themes/ThemeVisual_one.png",
+    image: "themes/ThemeVisual_one.png",
   },
   {
     id: "theme-B",
-    image: "/themes/ThemeVisual_two.png",
+    image: "themes/ThemeVisual_two.png",
   },
   {
     id: "theme-C",
-    image: "/themes/ThemeVisual_three.png",
+    image: "themes/ThemeVisual_three.png",
   },
   {
     id: "theme-D",
-    image: "/themes/ThemeVisual_four.png",
+    image: "themes/ThemeVisual_four.png",
   },
 ];
 
@@ -103,7 +103,7 @@ function setLineselection() {
 
 function setLine(label: HTMLLabelElement) {
   const img = document.createElement("img");
-  img.src = "/images/selectLine.png";
+  img.src = "images/selectLine.png";
   img.classList.add("theme-img");
   label.appendChild(img);
   label.style.fontWeight = '700';

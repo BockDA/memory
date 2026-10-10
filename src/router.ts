@@ -26,6 +26,23 @@ const routes: Record<string, Route> = {
     '/gameover': { render: renderGameOver, init: initGameOver },
 };
 
+// Basis-Pfad aus vite.config.ts, z. B. '/Projekte/memory/'
+const BASE = import.meta.env.BASE_URL;
+
+// Macht aus der echten Adresse im Browser den Pfad, den unsere Routen kennen:
+// '/Projekte/memory/options' -> '/options'
+function toRoutePath(pathname: string): string {
+    let path = pathname;
+    if (path.startsWith(BASE)) {
+        path = '/' + path.slice(BASE.length);
+    }
+    // Wer die Seite direkt über .../index.html öffnet, soll die Startseite sehen
+    if (path === '/index.html') {
+        path = '/';
+    }
+    return path;
+}
+
 function getApp(): HTMLElement {
     const app = document.getElementById('app');
     if (!app) {
@@ -52,13 +69,14 @@ function renderRoute(path: string): void {
 }
 
 export function navigateTo(path: string): void {
-    window.history.pushState({}, '', path);
+    // In der Adresszeile steht der Basis-Pfad davor: '/options' -> '/Projekte/memory/options'
+    window.history.pushState({}, '', BASE + path.slice(1));
     renderRoute(path);
 }
 
 export function initRouter(): void {
     window.addEventListener('popstate', () => {
-        renderRoute(window.location.pathname);
+        renderRoute(toRoutePath(window.location.pathname));
     });
-    renderRoute(window.location.pathname);
+    renderRoute(toRoutePath(window.location.pathname));
 }

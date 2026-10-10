@@ -39,7 +39,7 @@ body:has(.playfield) {
     width: var(--card-size);
     height: var(--card-size);
     perspective: 600px;
-    
+    cursor: pointer;
 }
 
 .card-inner {
