@@ -90,15 +90,23 @@ function setLineselection() {
     label.style.fontWeight = "400";
   });
   document.querySelectorAll(".theme-img").forEach((image) => image.remove());
-  const activeSelections = Array.from(
-    document.querySelectorAll<HTMLInputElement>('input[type="radio"]:checked')
-  ).map((radio) => {
+  document.querySelectorAll<HTMLInputElement>('input[type="radio"]:checked').forEach((radio) => {
     const label = radio.closest("label");
     if (label) setLine(label);
-    const selectedName = label?.textContent?.replace(/\s+/g, " ").trim() ?? "";
-    return ` ${selectedName}`;
   });
-  selectionWrite(activeSelections);
+  selectionWrite();
+  updateStartButton();
+}
+
+// Der Start-Button ist nur benutzbar, wenn in allen drei Gruppen etwas ausgewählt ist
+function updateStartButton(): void {
+  const startBtn = document.getElementById("startBtn");
+  if (!startBtn) return;
+  const allSelected =
+    document.querySelector('input[name="game-theme"]:checked') !== null &&
+    document.querySelector('input[name="Chooseplayer"]:checked') !== null &&
+    document.querySelector('input[name="Boardsize"]:checked') !== null;
+  startBtn.classList.toggle("btn--disabled", !allSelected);
 }
 
 function setLine(label: HTMLLabelElement) {
@@ -109,10 +117,21 @@ function setLine(label: HTMLLabelElement) {
   label.style.fontWeight = '700';
 }
 
-function selectionWrite(activeSelections: string[]): void {
-  document.getElementById("theme")!.textContent = activeSelections[0];
-  document.getElementById("player")!.textContent = activeSelections[1];
-  document.getElementById("boardSize")!.textContent = activeSelections[2];
+function selectionWrite(): void {
+  writeSelection("game-theme", "theme", "Game theme");
+  writeSelection("Chooseplayer", "player", "Player");
+  writeSelection("Boardsize", "boardSize", "Board size");
+}
+
+// Jede Gruppe wird einzeln geprüft, damit die Auswahl immer im richtigen Feld landet.
+// Ist in der Gruppe noch nichts ausgewählt, wird der Platzhalter angezeigt.
+function writeSelection(groupName: string, fieldId: string, placeholder: string): void {
+  const field = document.getElementById(fieldId);
+  if (!field) return;
+  const checkedRadio = document.querySelector<HTMLInputElement>(`input[name="${groupName}"]:checked`);
+  const label = checkedRadio?.closest("label");
+  const selectedName = label?.textContent?.replace(/\s+/g, " ").trim();
+  field.textContent = selectedName || placeholder;
 }
 
 

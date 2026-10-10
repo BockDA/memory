@@ -3,6 +3,10 @@ import gameOverTemplate from './gameOver.html?raw';
 import { themes } from "../assets/JSON/theme.json";
 import { player } from "../settings";
 import { getScoreSnapshot } from "../playfield/gameLogic";
+import { navigateTo } from "../router";
+
+// Wie lange der Game-over-Screen sichtbar bleibt, bevor der Gewinner gezeigt wird (Feedback)
+const GAME_OVER_DURATION_MS = 2500;
 import "./endscreen.scss";
 import "./gameOver.scss";
 
@@ -122,4 +126,11 @@ export function initGameOver(): void {
 	if (winnerIcon) {
 		winnerIcon.src = winnerImage;
 	}
+
+	// Nach kurzer Zeit automatisch zum Winner-Screen mit dem echten Gewinner wechseln (Feedback 1)
+	setTimeout(() => {
+		if (document.querySelector('.game-over')) {
+			navigateTo('/winner');
+		}
+	}, GAME_OVER_DURATION_MS);
 }

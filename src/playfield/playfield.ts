@@ -230,26 +230,30 @@ export class Card {
     }
 
     private createCardElement(frontImg: string): HTMLElement {
-        const cardDiv = document.createElement('div');
-        cardDiv.className = 'card';
-        cardDiv.dataset.cardId = String(this.id);
-        cardDiv.dataset.cardMatchId = this.matchId;
-        const cardInner = document.createElement('div');
+        // Ein <button> ist per Tastatur erreichbar (Tab, Enter, Leertaste) und wird von Screenreadern erkannt
+        const cardButton = document.createElement('button');
+        cardButton.type = 'button';
+        cardButton.setAttribute('aria-label', 'Karte aufdecken');
+        cardButton.className = 'card';
+        cardButton.dataset.cardId = String(this.id);
+        cardButton.dataset.cardMatchId = this.matchId;
+        // In einem <button> sind nur Inline-Elemente erlaubt, deshalb <span> statt <div>
+        const cardInner = document.createElement('span');
         cardInner.className = 'card-inner';
-        const cardFront = document.createElement('div');
+        const cardFront = document.createElement('span');
         cardFront.className = 'card-front';
         const frontImgEl = document.createElement('img');
         frontImgEl.src = frontImg;
         cardFront.appendChild(frontImgEl);
-        const cardBack = document.createElement('div');
+        const cardBack = document.createElement('span');
         cardBack.className = 'card-back';
         const backImgEl = document.createElement('img');
         backImgEl.src = this.backImg;
         cardBack.appendChild(backImgEl);
         cardInner.appendChild(cardFront);
         cardInner.appendChild(cardBack);
-        cardDiv.appendChild(cardInner);
-        return cardDiv;
+        cardButton.appendChild(cardInner);
+        return cardButton;
     }
 
     private addClickListener() {
@@ -349,11 +353,37 @@ export function initPlayfield(): void {
     while (cardCount % columns !== 0 && columns < cardCount) {
         columns++;
     }
-    cardField.setAttribute('style', `display: grid; grid-template-columns: repeat(${columns}, 1fr); gap: 1rem;`);
+    // Bei 16 Karten rücken die Karten enger zusammen
+    const gap = cardCount === 16 ? '0.5rem' : '1rem';
+    cardField.setAttribute('style', `display: grid; grid-template-columns: repeat(${columns}, 1fr); gap: ${gap};`);
     (cardField as HTMLElement).style.setProperty('--card-rows', String(cardCount / columns));
     cardField.innerHTML = '';
     cards.forEach((card) => {
         cardField.appendChild(card.element);
+    });
+    addArrowKeyNavigation(cardField as HTMLElement, columns);
+}
+
+// Mit den Pfeiltasten von Karte zu Karte springen.
+// Links/Rechts = eine Karte weiter, Hoch/Runter = eine ganze Reihe (= columns Karten) weiter.
+function addArrowKeyNavigation(cardField: HTMLElement, columns: number): void {
+    cardField.addEventListener('keydown', (event) => {
+        const cardButtons = Array.from(cardField.querySelectorAll<HTMLButtonElement>('.card'));
+        const currentIndex = cardButtons.indexOf(document.activeElement as HTMLButtonElement);
+        if (currentIndex === -1) return;
+
+        let newIndex: number;
+        if (event.key === 'ArrowRight') newIndex = currentIndex + 1;
+        else if (event.key === 'ArrowLeft') newIndex = currentIndex - 1;
+        else if (event.key === 'ArrowDown') newIndex = currentIndex + columns;
+        else if (event.key === 'ArrowUp') newIndex = currentIndex - columns;
+        else return; // andere Tasten (z. B. Enter) normal weiterlaufen lassen
+
+        // Verhindert, dass die Seite beim Drücken der Pfeiltasten scrollt
+        event.preventDefault();
+        if (newIndex >= 0 && newIndex < cardButtons.length) {
+            cardButtons[newIndex].focus();
+        }
     });
 }
 

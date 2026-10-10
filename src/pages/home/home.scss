@@ -45,32 +45,30 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
+    transition: transform 300ms ease;
 }
 
-.icon {
+.btn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+.btn_img {
     width: 250px;
     height: 98px;
     display: block;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
 }
 
-.icon-start {
-    background-image: url('/images/playbtn.png');
-    transition: transform 300ms ease;
-    transform-origin: center;
-    will-change: transform;
-}
-
-.icon-start:hover {
-    transform: scale(1.1);
-    background-image: url('/images/playbtn_hover.png');
-    cursor: pointer;
-}
-
-.icon-hover {
+.btn_img--hover {
     display: none;
+}
+
+.btn:hover .btn_img--normal {
+    display: none;
+}
+
+.btn:hover .btn_img--hover {
+    display: block;
 }
 
 }

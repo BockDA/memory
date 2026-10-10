@@ -154,6 +154,16 @@
             margin: 0;
             white-space: nowrap;
         }
+       
+        #theme {
+            min-width: 8.5em;
+        }
+        #player {
+            min-width: 4em;
+        }
+        #boardSize {
+            min-width: 5em;
+        }
         img {
             max-width: 100%;
             height: auto;
@@ -170,29 +180,35 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
+        transition: transform 300ms ease;
+         }
+
+    // Beim Hover wird der ganze Button größer
+    .btn:hover {
+        transform: scale(1.1);
     }
-    .icon {
+    .btn_img {
         width: clamp(98px, 9vw, 126px);
         height: auto;
-        aspect-ratio: 126 / 53;
         display: block;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: contain;
     }
-    .icon-start {
-        background-image: url('/images/startbtn.png');
-        transition: transform 300ms ease;
-        transform-origin: center;
-        will-change: transform;
-    }
-    .icon-start:hover {
-        transform: scale(1.1);
-        background-image: url('/images/startbtn_hover.png');
-        cursor: pointer;
-    }
-    .icon-hover {
+    // Standard: Hover-Bild verstecken
+    .btn_img--hover {
         display: none;
+    }
+    // Beim Hover: Bilder tauschen
+    .btn:hover .btn_img--normal {
+        display: none;
+    }
+    .btn:hover .btn_img--hover {
+        display: block;
+    }
+    // Gesperrter Zustand: halb durchsichtig und nicht klickbar.
+    // pointer-events: none schaltet auch den Hover-Effekt ab.
+    .btn--disabled {
+        opacity: 0.5;
+        pointer-events: none;
     }
 
 }
