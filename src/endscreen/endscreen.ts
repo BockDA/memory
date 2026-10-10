@@ -1,4 +1,3 @@
-import endscreenTemplate from './endscreen.html?raw';
 import winnerTemplate from './winner.html?raw';
 import gameOverTemplate from './gameOver.html?raw';
 import { themes } from "../assets/JSON/theme.json";
@@ -6,10 +5,6 @@ import { player } from "../settings";
 import { getScoreSnapshot } from "../playfield/gameLogic";
 import "./endscreen.scss";
 import "./gameOver.scss";
-
-export function renderEndscreen(): string {
-	return endscreenTemplate;
-}
 
 export function renderWinner(): string {
 	return winnerTemplate;

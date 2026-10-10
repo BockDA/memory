@@ -5,12 +5,36 @@ export interface Player {
     BoardSize: number;
 }
 
+const STORAGE_KEY = "memory-player";
+
 export const player: Player = {
     index: 0,
     themes: "",
     choosePlayer: "blue",
     BoardSize: 16,
 };
+
+// Einstellungen überleben einen Reload der Seite (z. B. auf /playfield)
+export function savePlayer(): void {
+    try {
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(player));
+    } catch {
+        // Storage nicht verfügbar – Einstellungen gelten nur bis zum Reload
+    }
+}
+
+function loadPlayer(): void {
+    try {
+        const stored = sessionStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            Object.assign(player, JSON.parse(stored));
+        }
+    } catch {
+        // ungültige oder fehlende Daten ignorieren, Defaults bleiben
+    }
+}
+
+loadPlayer();
 
 export interface Theme {
     playerSettings: {

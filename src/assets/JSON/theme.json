@@ -7,7 +7,7 @@
                 "backgroundColor": "#303131"
             },
             "card": {
-                "frontCardIMG": "./public/images/Cards/Themes1/FrontTheme1.png"
+                "frontCardIMG": "/images/Cards/Themes1/FrontTheme1.png"
             },
             "playerHeader": {
                 "backgroundColor": "#303131",
@@ -21,13 +21,13 @@
                 "borderRadius": "0px",
                 "fontColorPlayer": "#2bb1ff",
                 "fontColoropponent": "#f58e39",
-                "imagePlayerOne": "./public/images/PlayField/playerBlue.png",
-                "imagePlayerTwo": "./public/images/PlayField/playerOrange.png",
+                "imagePlayerOne": "/images/PlayField/playerBlue.png",
+                "imagePlayerTwo": "/images/PlayField/playerOrange.png",
                 "fontSize": "24px"
             },
             "playerCurrent": {
                 "fontColor": "#ffffff",
-                "image": "./public/images/PlayField/playerBlue.png",
+                "image": "/images/PlayField/playerBlue.png",
                 "fontSize": "24px",
                 "fontWight": 400
             },
@@ -78,7 +78,7 @@
                 "backgroundColor": "#303131"
             },
             "card": {
-                "frontCardIMG": "./public/images/Cards/Themes2/FrontTheme2.png"
+                "frontCardIMG": "/images/Cards/Themes2/FrontTheme2.png"
             },
             "playerHeader": {
                 "backgroundColor": "#535d75",
@@ -92,13 +92,13 @@
                 "borderRadius": "10px",
                 "fontColorPlayer": "#2bb1ff",
                 "fontColoropponent": "#f58e39",
-                "imagePlayerOne": "./public/images/PlayField/chess_pawn_orange.png",
-                "imagePlayerTwo": "./public/images/PlayField/chess_pawn_blue.png",
+                "imagePlayerOne": "/images/PlayField/chess_pawn_orange.png",
+                "imagePlayerTwo": "/images/PlayField/chess_pawn_blue.png",
                 "fontSize": "24px"
             },
             "playerCurrent": {
                 "fontColor": "#ffffff",
-                "image": "./public/images/PlayField/chess_pawn.png",
+                "image": "/images/PlayField/chess_pawn.png",
                 "fontSize": "24px",
                 "fontWight": 400
             },

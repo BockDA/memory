@@ -18,24 +18,19 @@ let playerImages: Record<PlayerColor, string> = {
 	orange: '',
 };
 
-function normalizePlayerName(value: string): PlayerColor {
-	return value.trim().toLowerCase() === 'orange' ? 'orange' : 'blue';
-}
-
 function renderHud(): void {
-	const playerNameEl = document.querySelector('.player-name') as HTMLElement | null;
-	const opponentNameEl = document.querySelector('.opponent-name') as HTMLElement | null;
 	const playerPointsEl = document.querySelector('.player-points') as HTMLElement | null;
 	const opponentPointsEl = document.querySelector('.opponent-points') as HTMLElement | null;
 	const currentPlayerImgEl = document.querySelector('.current-player-picture') as HTMLImageElement | null;
 
-	if (playerNameEl && playerPointsEl) {
-		const playerSide = normalizePlayerName(playerNameEl.innerText);
+	const playerSide: PlayerColor = player.choosePlayer;
+	const opponentSide: PlayerColor = playerSide === 'blue' ? 'orange' : 'blue';
+
+	if (playerPointsEl) {
 		playerPointsEl.innerText = String(scores[playerSide]);
 	}
 
-	if (opponentNameEl && opponentPointsEl) {
-		const opponentSide = normalizePlayerName(opponentNameEl.innerText);
+	if (opponentPointsEl) {
 		opponentPointsEl.innerText = String(scores[opponentSide]);
 	}
 
@@ -88,11 +83,14 @@ export function getScoreSnapshot(): Record<PlayerColor, number> {
 	};
 }
 
-function allCardsFlipped(): boolean {
-	const allCards = document.querySelectorAll('.card');
-	return allCards.length > 0 && Array.from(allCards).every(card =>
-		card.querySelector('.card-inner')?.classList.contains('flipped') ?? false
-	);
+export function setDebugScores(blue: number, orange: number): void {
+	scores.blue = blue;
+	scores.orange = orange;
+}
+
+function allCardsMatched(): boolean {
+	const allCards = document.querySelectorAll<HTMLElement>('.card');
+	return allCards.length > 0 && Array.from(allCards).every(card => card.dataset.matched === 'true');
 }
 
 export function finishGame(): void {
@@ -135,13 +133,12 @@ export function counterCard(cardElement: HTMLElement): void {
 
 	if (isMatch) {
 		console.log('Karten gleich');
-		finishGame();
 		firstCard.dataset.matched = 'true';
 		secondCard.dataset.matched = 'true';
 		scores[currentTurn] += 1;
 		openCards.length = 0;
 		renderHud();
-		if (allCardsFlipped()) {
+		if (allCardsMatched()) {
 			finishGame();
 			return;
 		}

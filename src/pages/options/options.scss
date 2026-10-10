@@ -112,6 +112,11 @@
         &:hover {
             cursor: pointer;
         }
+
+        // Themes, die noch nicht freigeschaltet sind, werden ausgeblendet
+        &.locked {
+            display: none;
+        }
     }
 
 

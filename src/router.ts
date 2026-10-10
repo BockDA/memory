@@ -3,18 +3,31 @@ import { initOptions, renderOptions } from './pages/options/options';
 import { renderAbout } from './pages/about/about';
 import { renderPlayfield, writeSCSSVariables } from './playfield/playfield';
 import { createCards, initPlayfield } from './playfield/playfield';
-import { initGameOver, initWinner, renderEndscreen, renderWinner, renderGameOver } from './endscreen/endscreen';
+import { initGameOver, initWinner, renderWinner, renderGameOver } from './endscreen/endscreen';
 import { player } from './settings';
 
 
-const routes: Record<string, () => string> = {
-    '/': renderHome,
-    '/options': renderOptions,
-    '/about': renderAbout,
-    '/playfield': renderPlayfield,
-    '/endscreen': renderEndscreen,
-    '/winner': renderWinner,
-    '/gameover': renderGameOver,
+interface Route {
+    render: () => string;
+    init?: () => void;
+}
+
+function initPlayfieldPage(): void {
+    const totalCards = [16, 24, 36].includes(player.BoardSize) ? player.BoardSize : 16;
+    const pairCount = totalCards / 2;
+
+    writeSCSSVariables();
+    createCards(pairCount);
+    initPlayfield();
+}
+
+const routes: Record<string, Route> = {
+    '/': { render: renderHome },
+    '/options': { render: renderOptions, init: initOptions },
+    '/about': { render: renderAbout },
+    '/playfield': { render: renderPlayfield, init: initPlayfieldPage },
+    '/winner': { render: renderWinner, init: initWinner },
+    '/gameover': { render: renderGameOver, init: initGameOver },
 };
 
 function getApp(): HTMLElement {
@@ -32,41 +45,14 @@ function renderRoute(path: string): void {
         path = path.slice(0, -1);
     }
     const app = getApp();
-    const page = routes[path] || (() => `<h2>404</h2><p>Seite nicht gefunden</p>`);
+    const route = routes[path];
 
     app.classList.remove('show');
     app.classList.add('fade');
 
     setTimeout(() => {
-        app.innerHTML = page();
-
-        if (path === '/options') {
-            initOptions();
-        }
-
-
-        if (path === '/endscreen') {
-            // aktuell keine zusätzliche Init-Logik nötig
-        }
-
-        if (path === '/gameover') {
-            initGameOver();
-        }
-
-        if (path === '/winner') {
-            initWinner();
-        }
-
-        if (path === '/playfield') {
-            const totalCards = [16, 24, 36].includes(player.BoardSize) ? player.BoardSize : 16;
-            const pairCount = totalCards / 2;
-
-            writeSCSSVariables();
-            createCards(pairCount);
-            initPlayfield();
-        }
-
-
+        app.innerHTML = route ? route.render() : `<h2>404</h2><p>Seite nicht gefunden</p>`;
+        route?.init?.();
 
         app.classList.remove('fade');
         app.classList.add('show');

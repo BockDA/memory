@@ -411,6 +411,7 @@ export function initPlayfield(): void {
         columns++;
     }
     cardField.setAttribute('style', `display: grid; grid-template-columns: repeat(${columns}, 1fr); gap: 1rem;`);
+    (cardField as HTMLElement).style.setProperty('--card-rows', String(cardCount / columns));
 
     // Vorherigen Inhalt entfernen
     cardField.innerHTML = '';

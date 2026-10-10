@@ -1,6 +1,7 @@
 import "./options.scss";
 import optionsTemplate from "./options.html?raw";
-import {player} from "./../../settings";
+import { player, savePlayer } from "./../../settings";
+import { setDebugScores } from "./../../playfield/gameLogic";
 
 console.log("Starte ts options.ts");
 
@@ -37,6 +38,20 @@ export function initOptions(): void {
   radioselect(radiobtn);
   setLineselection();
   initStartButton();
+  initTestButtons();
+}
+
+function initTestButtons(): void {
+  const testWinnerBtn = document.getElementById("testWinnerBtn");
+  const testDrawBtn = document.getElementById("testDrawBtn");
+
+  testWinnerBtn?.addEventListener("click", () => {
+    setDebugScores(2, 1);
+  });
+
+  testDrawBtn?.addEventListener("click", () => {
+    setDebugScores(1, 1);
+  });
 }
 
 function initStartButton(): void {
@@ -153,5 +168,6 @@ export function writeData(): void {
     : 16;
 
   player.BoardSize = [16, 24, 36].includes(selectedBoardSize) ? selectedBoardSize : 16;
+  savePlayer();
 
 }

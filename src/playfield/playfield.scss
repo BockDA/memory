@@ -32,8 +32,11 @@
 
 
 .card {
-    width: 120px;
-    height: 120px;
+    // Kartengröße schrumpft, damit alle Reihen in die Fensterhöhe passen
+    // 200px = Header inkl. Abstand (140px) + Padding des Kartenfelds (40px) + Puffer
+    --card-size: min(120px, calc((100vh - 200px - (var(--card-rows, 4) - 1) * 1rem) / var(--card-rows, 4)));
+    width: var(--card-size);
+    height: var(--card-size);
     perspective: 600px;
     //background-color: red;
 }
