@@ -6,9 +6,7 @@ const homeData = {
     message: 'Willkommen auf der Startseite.',
 };
 
-
-
-export function renderHome(): string {                  //schreibt text in platzhalter
+export function renderHome(): string {                  
     return homeTemplate
         .replace('{{title}}', homeData.title)
         .replace('{{message}}', homeData.message);

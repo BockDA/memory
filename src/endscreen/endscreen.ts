@@ -22,7 +22,6 @@ function getThemeImageByPlayerColor(
 		currentTheme.playerSection.imagePlayerOne,
 		currentTheme.playerSection.imagePlayerTwo,
 	];
-
 	return playerColor === "blue" ? imagePool[0] : imagePool[1];
 }
 

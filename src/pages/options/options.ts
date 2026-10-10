@@ -1,9 +1,6 @@
 import "./options.scss";
 import optionsTemplate from "./options.html?raw";
 import { player, savePlayer } from "./../../settings";
-import { setDebugScores } from "./../../playfield/gameLogic";
-
-console.log("Starte ts options.ts");
 
 export const themes = [
   {
@@ -25,33 +22,17 @@ export const themes = [
 ];
 
 export function renderOptions(): string {
-  //schreibt text in platzhalter
   return optionsTemplate;
 }
 
 export function initOptions(): void {
-  //const radiobtn = document.querySelectorAll('input[type="radio"]');
-  const radiobtn = document.querySelectorAll<HTMLLabelElement>("label");
+   const radiobtn = document.querySelectorAll<HTMLLabelElement>("label");
   if (!radiobtn) {
     return;
   }
   radioselect(radiobtn);
   setLineselection();
   initStartButton();
-  initTestButtons();
-}
-
-function initTestButtons(): void {
-  const testWinnerBtn = document.getElementById("testWinnerBtn");
-  const testDrawBtn = document.getElementById("testDrawBtn");
-
-  testWinnerBtn?.addEventListener("click", () => {
-    setDebugScores(2, 1);
-  });
-
-  testDrawBtn?.addEventListener("click", () => {
-    setDebugScores(1, 1);
-  });
 }
 
 function initStartButton(): void {
@@ -68,9 +49,6 @@ function initStartButton(): void {
 function radioselect(radiobtn: NodeListOf<HTMLLabelElement>): void {
   radiobtn.forEach((btn, index) => {
     const radio = btn.querySelector('input[type="radio"]') as HTMLInputElement | null;
-
-
-
     btn.addEventListener("mouseenter", () => {
       if (index > 3) return;
       setpicture(index);
@@ -83,13 +61,10 @@ function radioselect(radiobtn: NodeListOf<HTMLLabelElement>): void {
     });
 
     btn.addEventListener("mousedown", () => {
-      console.log("drücken", index);
       if (index <= 3) {
         setpicture(index);
           }
-
     });
-
     radio?.addEventListener("change", () => {
       if (index <= 3) setpicture(index);
       setLineselection();
@@ -110,28 +85,20 @@ function setpicture(index: number): void {
   pic.src = themes[index].image;
 }
 
-
-
 function setLineselection() {
   document.querySelectorAll<HTMLLabelElement>("label").forEach((label) => {
     label.style.fontWeight = "400";
   });
   document.querySelectorAll(".theme-img").forEach((image) => image.remove());
-
-
   const activeSelections = Array.from(
-
     document.querySelectorAll<HTMLInputElement>('input[type="radio"]:checked')
   ).map((radio) => {
     const label = radio.closest("label");
     if (label) setLine(label);
-
     const selectedName = label?.textContent?.replace(/\s+/g, " ").trim() ?? "";
     return ` ${selectedName}`;
   });
-
   selectionWrite(activeSelections);
-
 }
 
 function setLine(label: HTMLLabelElement) {
@@ -150,24 +117,18 @@ function selectionWrite(activeSelections: string[]): void {
 
 
 export function writeData(): void {
-  console.log("write data wird aufgerufen");
-
   const selectedThemeRadio = document.querySelector<HTMLInputElement>('input[name="game-theme"]:checked');
   const selectedPlayerRadio = document.querySelector<HTMLInputElement>('input[name="Chooseplayer"]:checked');
   const selectedBoardSizeRadio = document.querySelector<HTMLInputElement>('input[name="Boardsize"]:checked');
-
   const selectedThemeIndex = selectedThemeRadio
     ? Math.max(parseInt(selectedThemeRadio.value.replace("theme-", ""), 10) - 1, 0)
     : 0;
-
   player.index = selectedThemeIndex;
   player.themes = themes[selectedThemeIndex]?.id || "theme-A";
   player.choosePlayer = selectedPlayerRadio?.value === "2" ? "orange" : "blue";
   const selectedBoardSize = selectedBoardSizeRadio
     ? parseInt(selectedBoardSizeRadio.value, 10)
     : 16;
-
   player.BoardSize = [16, 24, 36].includes(selectedBoardSize) ? selectedBoardSize : 16;
   savePlayer();
-
 }

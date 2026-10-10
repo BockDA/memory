@@ -6,7 +6,6 @@ export interface Player {
 }
 
 const STORAGE_KEY = "memory-player";
-
 export const player: Player = {
     index: 0,
     themes: "",
@@ -35,7 +34,6 @@ function loadPlayer(): void {
 }
 
 loadPlayer();
-
 export interface Theme {
     playerSettings: {
         themeIndex: number;

@@ -1,6 +1,6 @@
 .game-over {
     position: relative;
-    gap: 28px;
+    gap: 40px;
     overflow: hidden;
 }
 
@@ -21,33 +21,33 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
+    gap: 20px;
 }
 
 .game-over__label {
     margin: 0;
     color: var(--gameOver_LabelColor);
     font-family: 'Almarai', sans-serif;
-    font-size: 14px;
+    font-size: 40px;
     font-weight: 400;
 }
 
 .game-over__score-box {
     display: flex;
     align-items: center;
-    gap: 16px;
-    min-height: 31px;
-    padding: 0 10px;
+    gap: 32px;
+    min-height: 64px;
+    padding: 0 24px;
     background-color: var(--gameOver_ScoreBoxBackground);
     font-family: 'Almarai', sans-serif;
-    font-size: 12px;
+    font-size: 28px;
     font-weight: 700;
 }
 
 .game-over__score-item {
     display: inline-flex;
     align-items: center;
-    gap: 2px;
+    gap: 8px;
 }
 
 .game-over__score-item--blue {
@@ -59,37 +59,40 @@
 }
 
 .game-over__marker {
-    width: 12px;
-    height: 8px;
+    width: 28px;
+    height: 18px;
     background-color: currentColor;
     clip-path: polygon(0 0, 72% 0, 100% 50%, 72% 100%, 0 100%);
 }
 
 .game-over--theme2 {
-    gap: 28px;
+    gap: 40px;
 }
 
 .game-over--theme2 .game-over__title {
+    margin-bottom: 80px;
+    letter-spacing: 0.08em;
     text-shadow: none;
 }
 
 .game-over--theme2 .game-over__score {
-    gap: 10px;
+    gap: 20px;
 }
 
 .game-over--theme2 .game-over__label {
-    font-family: 'Almarai', sans-serif;
-    font-size: 18px;
+    font-family: var(--gameOver_FontFamily);
+    font-size: 32px;
+    letter-spacing: 0.05em;
     font-weight: 700;
 }
 
 .game-over--theme2 .game-over__score-box {
-    gap: 12px;
-    min-height: 34px;
-    padding: 0 10px;
-    border-radius: 4px;
-    font-family: 'Almarai', sans-serif;
-    font-size: 22px;
+    gap: 32px;
+    min-height: 64px;
+    padding: 0 18px;
+    border-radius: 10px;
+    font-family: var(--gameOver_FontFamily);
+    font-size: 40px;
     line-height: 1;
 }
 
@@ -110,7 +113,7 @@
 
 .game-over--theme2 .game-over__marker::before {
     content: "♙";
-    font-size: 22px;
+    font-size: 36px;
     line-height: 1;
 }
 
@@ -214,15 +217,16 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 104px;
-    height: 31px;
-    padding: 0 12px;
+    min-width: 204px;
+    height: 62px;
+    padding: 0 6px;
+    margin-top: 20px;
     border: 1px solid var(--gameOver_ButtonBorderColor);
     border-radius: var(--gameOver_ButtonBorderRadius);
     background-color: var(--gameOver_ButtonBackground);
     color: var(--gameOver_ButtonFontColor);
     font-family: 'Almarai', sans-serif;
-    font-size: 12px;
+    font-size: 24px;
     font-weight: 700;
     text-decoration: none;
     cursor: pointer;

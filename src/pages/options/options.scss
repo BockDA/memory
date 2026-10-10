@@ -18,13 +18,11 @@
     min-width: 0;
 }
 
-
 .settings_headline {
     position: relative;
     text-align: left;
     max-width: 100%;
     padding-left: 50px;
-
     &_text {
         font-family: 'Red Rose', serif;
         font-size: clamp(38px, 4vw, 54px);
@@ -46,8 +44,6 @@
     justify-content: left;
     gap: 22px;
     margin-top: 48px;
-
-
     img {
         width: 28px;
         height: 28px;
@@ -62,8 +58,6 @@
     }
 }
 
-
-
 .settings_headline>.option {
     margin-top: 20px;
     margin-left: 8px;
@@ -75,18 +69,14 @@
         align-items: flex-start;
         margin-left: 50px;
     }
-
     br {
         display: none;
     }
-
     label {
         display: flex;
         align-items: center;
         gap: 10px;
         font-size: clamp(17px, 1.5vw, 20px);
-        //font-weight: 700;
-
         .theme-img {
             width: 36px;
             height: auto;
@@ -103,7 +93,6 @@
             place-content: center; //align und content center Doppelbefehl
             cursor: pointer;
             transition: border-color 0.2s ease, background-color 0.2s ease;
-
             &:checked {
                 background: radial-gradient(circle, #1b6d3a 0 24%, transparent 20%);
             }
@@ -118,11 +107,7 @@
             display: none;
         }
     }
-
-
 }
-
-
 
 .setting_info {
     display: flex;
@@ -133,18 +118,14 @@
     width: 100%;
     min-height: 100%;
     background-color: $background_settings;
-
-
     &_themes {
         width: min(100%, 520px);
-
         img {
             width: 100%;
             height: auto;
             display: block;
             object-fit: contain;
         }
-
     }
 
     &_summary {
@@ -154,7 +135,6 @@
         align-self: center;
         margin-inline: auto;
         min-height: 38px;
-        
         padding: 20px 16px;
         box-sizing: border-box;
         font-size: clamp(16px, 1.3vw, 20px);
@@ -170,12 +150,10 @@
         flex: 0 0 auto;
         gap: 10px;
         white-space: nowrap;
-
         p {
             margin: 0;
             white-space: nowrap;
         }
-
         img {
             max-width: 100%;
             height: auto;
@@ -193,7 +171,6 @@
         align-items: center;
         justify-content: center;
     }
-
     .icon {
         width: clamp(98px, 9vw, 126px);
         height: auto;
@@ -203,20 +180,17 @@
         background-position: center;
         background-size: contain;
     }
-
     .icon-start {
         background-image: url('/images/startbtn.png');
         transition: transform 300ms ease;
         transform-origin: center;
         will-change: transform;
     }
-
     .icon-start:hover {
         transform: scale(1.1);
         background-image: url('/images/startbtn_hover.png');
         cursor: pointer;
     }
-
     .icon-hover {
         display: none;
     }
@@ -234,12 +208,10 @@
         justify-content: flex-start;
         align-items: flex-start;
     }
-
     .setting_info_themes,
     .setting_info_summary {
         width: min(100%, 620px);
     }
-
     .setting_info_summary {
         align-self: flex-start;
         margin-inline: 0;
@@ -247,7 +219,6 @@
 }
 
 @media (max-width: 1100px) {
-
     .setting_info_themes,
     .setting_info_summary {
         width: min(100%, 620px);
@@ -259,11 +230,9 @@
         padding: 18px 14px;
         gap: 14px;
     }
-
     .setting_info .setting_detail_show {
         gap: 8px;
     }
-
     .settings .btn {
         margin-left: 0;
     }

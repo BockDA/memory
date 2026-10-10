@@ -6,7 +6,6 @@ type PlayerColor = 'blue' | 'orange';
 
 export type GameResult = 'win' | 'loss' | 'draw';
 export let playerResult: GameResult = 'draw';
-
 const scores: Record<PlayerColor, number> = {
 	blue: 0,
 	orange: 0,
@@ -22,20 +21,15 @@ function renderHud(): void {
 	const playerPointsEl = document.querySelector('.player-points') as HTMLElement | null;
 	const opponentPointsEl = document.querySelector('.opponent-points') as HTMLElement | null;
 	const currentPlayerImgEl = document.querySelector('.current-player-picture') as HTMLImageElement | null;
-
 	const playerSide: PlayerColor = player.choosePlayer;
 	const opponentSide: PlayerColor = playerSide === 'blue' ? 'orange' : 'blue';
 
 	if (playerPointsEl) {
 		playerPointsEl.innerText = String(scores[playerSide]);
 	}
-
 	if (opponentPointsEl) {
 		opponentPointsEl.innerText = String(scores[opponentSide]);
 	}
-
-
-
 	if (currentPlayerImgEl && playerImages[currentTurn]) {
 		currentPlayerImgEl.src = playerImages[currentTurn];
 	}
@@ -54,7 +48,6 @@ function setFlipped(cardElement: HTMLElement, flipped: boolean): void {
 	if (!cardInner) {
 		return;
 	}
-
 	cardInner.classList.toggle('flipped', flipped);
 }
 
@@ -72,7 +65,6 @@ export function initGameLogic(startingPlayer: PlayerColor, blueImage = '', orang
 		blue: blueImage,
 		orange: orangeImage,
 	};
-
 	renderHud();
 }
 
@@ -81,11 +73,6 @@ export function getScoreSnapshot(): Record<PlayerColor, number> {
 		blue: scores.blue,
 		orange: scores.orange,
 	};
-}
-
-export function setDebugScores(blue: number, orange: number): void {
-	scores.blue = blue;
-	scores.orange = orange;
 }
 
 function allCardsMatched(): boolean {
@@ -98,7 +85,6 @@ export function finishGame(): void {
 	const opponentColor: PlayerColor = myColor === 'blue' ? 'orange' : 'blue';
 	const myScore = scores[myColor];
 	const opponentScore = scores[opponentColor];
-
 	if (myScore > opponentScore) {
 		playerResult = 'win';
 	} else if (myScore < opponentScore) {
@@ -106,8 +92,6 @@ export function finishGame(): void {
 	} else {
 		playerResult = 'draw';
 	}
-
-	console.log(`Game finished. Player result: ${playerResult} (Player: ${myScore}, Opponent: ${opponentScore})`);
 	const route = playerResult === 'loss' ? '/gameover' : '/winner';
 	window.history.pushState({}, '', route);
 	window.dispatchEvent(new PopStateEvent('popstate'));
@@ -117,22 +101,17 @@ export function counterCard(cardElement: HTMLElement): void {
 	if (boardLocked || isFlipped(cardElement) || cardElement.dataset.matched === 'true') {
 		return;
 	}
-
 	setFlipped(cardElement, true);
 	openCards.push(cardElement);
-
 	if (openCards.length < 2) {
 		return;
 	}
-
 	boardLocked = true;
 	const [firstCard, secondCard] = openCards;
 	const firstMatchId = firstCard.dataset.cardMatchId ?? firstCard.dataset.cardId;
 	const secondMatchId = secondCard.dataset.cardMatchId ?? secondCard.dataset.cardId;
 	const isMatch = firstMatchId === secondMatchId;
-
 	if (isMatch) {
-		console.log('Karten gleich');
 		firstCard.dataset.matched = 'true';
 		secondCard.dataset.matched = 'true';
 		scores[currentTurn] += 1;

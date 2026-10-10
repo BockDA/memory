@@ -6,18 +6,11 @@ import cardsData from "../assets/JSON/cards.json";
 import type { Theme } from "../settings";
 import { player } from "../settings"
 import { counterCard, initGameLogic, resetCardCounter } from "./gameLogic";
-
-
-console.log("Starte ts playfield.ts");
-
-
 export function renderPlayfield(): string {
     return playfieldTemplate
 }
 
 function writeJSONData(): Theme {
-    console.log("aktuller index", player.index);
-    console.log("chose Player", player.choosePlayer);
     const theme: Theme = {
         playerSettings: {
             themeIndex: player.index,
@@ -25,19 +18,14 @@ function writeJSONData(): Theme {
             player: player.choosePlayer,
             boardSize: player.BoardSize,
         },
-
         id: themes[player.index].id,
         title: themes[player.index].title,
-
         playField: {
             "background": themes[player.index].playField.backgroundColor,
         },
-
         card: {
             "frontCardIMG": themes[player.index].card.frontCardIMG
         },
-
-
         playerHeader: {
             "backgroundColor": themes[player.index].playerHeader.backgroundColor,
             "borderColor": themes[player.index].playerHeader.borderColor,
@@ -75,22 +63,17 @@ function writeJSONData(): Theme {
     return theme;
 }
 
-
-
-//wird in  routers aufgerufen, wenn die playfield seite aufgerufen wird, um die scss variablen zu setzen
 export function writeSCSSVariables(): void {
     const currentTheme = writeJSONData()
     const playfield = document.querySelector(".playfield") as HTMLElement | null;
     const selectedPlayer: "blue" | "orange" = player.choosePlayer === "orange" ? "orange" : "blue";
     const opponentPlayer: "blue" | "orange" = selectedPlayer === "blue" ? "orange" : "blue";
-
     const playerColor = selectedPlayer === "blue"
         ? currentTheme.playerSection.fontColorPlayer
         : currentTheme.playerSection.fontColoropponent;
     const opponentColor = selectedPlayer === "blue"
         ? currentTheme.playerSection.fontColoropponent
         : currentTheme.playerSection.fontColorPlayer;
-
     const imagePool = [
         currentTheme.playerSection.imagePlayerOne,
         currentTheme.playerSection.imagePlayerTwo,
@@ -100,43 +83,34 @@ export function writeSCSSVariables(): void {
         (selectedPlayer === "blue" ? imagePool[0] : imagePool[1]);
     const opponentPlayerImage =
         (selectedPlayer === "blue" ? imagePool[1] : imagePool[0]);
-
     const blueImage = selectedPlayer === "blue" ? selectedPlayerImage : opponentPlayerImage;
     const orangeImage = selectedPlayer === "orange" ? selectedPlayerImage : opponentPlayerImage;
 
     initGameLogic(selectedPlayer, blueImage, orangeImage);
-
     if (playfield) {
         playfield.classList.toggle("playfield--theme2", player.index === 1);
     }
-
     const playerImg = document.querySelector(".player-picture") as HTMLImageElement | null;
     if (playerImg) {
         playerImg.src = selectedPlayerImage;
     }
-
     const opponentImg = document.querySelector(".opponent-picture") as HTMLImageElement | null;
     if (opponentImg) {
         opponentImg.src = opponentPlayerImage;
     }
 
-    //Player Texte
     const playerName = document.querySelector(".player-name") as HTMLElement | null;
     if (playerName) {
         playerName.style.color = playerColor;
         playerName.innerText = selectedPlayer === "blue" ? "Blue" : "Orange";
     }
 
-    //opponent Texte
     const opponentName = document.querySelector(".opponent-name") as HTMLElement | null;
     if (opponentName) {
         opponentName.style.color = opponentColor;
         opponentName.innerText = opponentPlayer === "blue" ? "Blue" : "Orange";
     }
 
-
-
-    //Spielstand Player and Opponent
     const playerPoints = document.querySelector(".player-points") as HTMLElement | null;
     if (playerPoints) {
         playerPoints.style.color = playerColor;
@@ -147,10 +121,6 @@ export function writeSCSSVariables(): void {
         opponentPoints.style.color = opponentColor;
         opponentPoints.innerText = "0";
     }
-
-
-
-    //Playfield
 
     document.documentElement.style.setProperty(
         '--playField_Background',
@@ -167,8 +137,6 @@ export function writeSCSSVariables(): void {
         currentTheme.playerHeader.fontColor
     );
 
-
-    //Player Section
     document.documentElement.style.setProperty(
         '--playerSection_Background',
         currentTheme.playerSection.backgroundColor
@@ -183,9 +151,6 @@ export function writeSCSSVariables(): void {
         '--playerSection_BorderRadius',
         currentTheme.playerSection.borderRadius
     )
-
-
-    //Current Player
 
     document.documentElement.style.setProperty(
         '--currentPlayer_FontColor',
@@ -206,9 +171,6 @@ export function writeSCSSVariables(): void {
         currentPlayerImg.src = selectedPlayerImage || currentTheme.playerCurrent.image;
     }
 
-   
-
-    //Exit Button
     document.documentElement.style.setProperty(
         '--exitGameButton_backgroundColor',
         currentTheme.exitGameButton.backgroundColor
@@ -234,8 +196,6 @@ export function writeSCSSVariables(): void {
         currentTheme.exitGameButton.popupButtonBorderRadius
     );
 
-
-
     document.documentElement.style.setProperty(
         '--exitGameButton_fontColor',
         currentTheme.exitGameButton.fontColor
@@ -249,9 +209,7 @@ export function writeSCSSVariables(): void {
         '--exitGameButton_fontWight',
         currentTheme.exitGameButton.fontWight.toString()
     );
-
 }
-
 
 export class Card {
     id: number;
@@ -260,7 +218,6 @@ export class Card {
     backImg: string;
     matchId: string;
     element: HTMLElement;
-
 
     constructor(id: number, name: string, picture: string, frontImg: string, backImg: string, matchId: string) {
         this.id = id;
@@ -284,13 +241,11 @@ export class Card {
         const frontImgEl = document.createElement('img');
         frontImgEl.src = frontImg;
         cardFront.appendChild(frontImgEl);
-
         const cardBack = document.createElement('div');
         cardBack.className = 'card-back';
         const backImgEl = document.createElement('img');
         backImgEl.src = this.backImg;
         cardBack.appendChild(backImgEl);
-
         cardInner.appendChild(cardFront);
         cardInner.appendChild(cardBack);
         cardDiv.appendChild(cardInner);
@@ -300,33 +255,26 @@ export class Card {
     private addClickListener() {
         this.element.addEventListener('click', () => {
             counterCard(this.element);
-            console.log(`Card ${this.name} clicked`);
         });
     }
 
     flip() {
-        // Toggle die Klasse 'flipped' auf dem inneren Card-Element
         const cardInner = this.element.querySelector('.card-inner');
         if (cardInner) {
             cardInner.classList.toggle('flipped');
         } else {
-            // Fallback: auf Hauptelement toggeln
             this.element.classList.toggle('flipped');
         }
     }
 }
 
-// 8 verschiedene Kartenpaare (insgesamt 16 Karten)
 export const cards: Card[] = [];
 export function createCards(anzahl: number): void {
     resetCardCounter();
-    cards.length = 0; // Array leeren, falls schon Karten vorhanden sind
-    // Hole das aktuelle Theme für die Vorderseite
+    cards.length = 0; 
     const frontImg = themes[player.index].card.frontCardIMG;
-    // Rückseitenbilder aus cards.json
     const cardBacks = cardsData.card;
     const cardBackObj: any = cardBacks.find((cardSet) => cardSet.id === player.index + 1) ?? cardBacks[0] ?? {};
-
     const imageKeys = Object.keys(cardBackObj)
         .filter(key => key.startsWith("backCardIMG"))
         .sort((a, b) => {
@@ -341,7 +289,6 @@ export function createCards(anzahl: number): void {
     }
 
     const selectedImageKeys = imageKeys.length > 0 ? imageKeys : ["backCardIMG1"];
-
     for (let i = 1; i <= anzahl; i++) {
         const imageKey = selectedImageKeys[(i - 1) % selectedImageKeys.length];
         const imgIndex = Number(imageKey.replace("backCardIMG", ""));
@@ -362,28 +309,22 @@ export function cardMix(): void {
         const j = Math.floor(Math.random() * (i + 1));
         [cards[i], cards[j]] = [cards[j], cards[i]];
     }
-
 }
 
 
 export function initPlayfield(): void {
-
     const modal = document.querySelector('.exit-modal') as HTMLElement | null;
     const exitBtn = document.querySelector('.exit-btn') as HTMLAnchorElement | null;
     const continueBtn = document.querySelector('.exit-modal__btn--continue') as HTMLButtonElement | null;
     const abortBtn = document.querySelector('.exit-modal__btn--abort') as HTMLButtonElement | null;
-
-    //prüfen, ob alle Elemente vorhanden sind 
     if (modal && exitBtn && continueBtn && abortBtn && modal.dataset.wired !== 'true') {
         modal.dataset.wired = 'true';
-
         const setModalOpen = (open: boolean) => {
             modal.hidden = !open;
             modal.setAttribute('aria-hidden', String(!open));
         };
 
         setModalOpen(false);
-
         exitBtn.addEventListener('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
@@ -403,8 +344,6 @@ export function initPlayfield(): void {
 
     const cardField = document.querySelector('.card-Field');
     if (!cardField) return;
-
-    // Rechteckige Grid-Anordnung berechnen
     const cardCount = cards.length;
     let columns = Math.ceil(Math.sqrt(cardCount));
     while (cardCount % columns !== 0 && columns < cardCount) {
@@ -412,11 +351,7 @@ export function initPlayfield(): void {
     }
     cardField.setAttribute('style', `display: grid; grid-template-columns: repeat(${columns}, 1fr); gap: 1rem;`);
     (cardField as HTMLElement).style.setProperty('--card-rows', String(cardCount / columns));
-
-    // Vorherigen Inhalt entfernen
     cardField.innerHTML = '';
-
-    // Karten-Elemente aus der Card-Klasse einfügen
     cards.forEach((card) => {
         cardField.appendChild(card.element);
     });
